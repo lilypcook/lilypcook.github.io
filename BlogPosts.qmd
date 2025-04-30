@@ -8,4 +8,4 @@ listing:
   categories: true # allows you to sort posts by assigned categories 
 ---
 
-
+This posts are created for Advanced R (STAT 541) at Cal Poly

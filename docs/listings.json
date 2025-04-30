@@ -1,6 +1,11 @@
 [
   {
     "listing": "/BlogPosts.html",
-    "items": []
+    "items": [
+      "/posts/lab2/index.html",
+      "/posts/lab3/index.html",
+      "/posts/lab4/index.html",
+      "/posts/lab1/index.html"
+    ]
   }
 ]
