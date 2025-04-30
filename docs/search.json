@@ -205,8 +205,36 @@
   {
     "objectID": "BlogPosts.html",
     "href": "BlogPosts.html",
-    "title": "BlogPosts",
+    "title": "Blog Posts",
     "section": "",
-    "text": "No matching items"
+    "text": "This posts are created for Advanced R (STAT 541) at Cal Poly\n\n\n\n\n\n\n\n\n\n\n\n\nGrade Reflection\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLab 4\n\n\n\nAdvanced R\n\n\n\nDynamic Quarto Dashboard\n\n\n\nLily Cook\n\n\nApr 28, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nLab 3\n\n\n\nAdvanced R\n\n\n\nStatic Quarto Dashboard\n\n\n\nLily Cook\n\n\nApr 21, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nLab 2\n\n\n\nAdvanced R\n\n\n\nAdvanced Visualizations\n\n\n\nLily Cook\n\n\nApr 14, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nLab 1\n\n\n\nAdvanced R\n\n\n\nReviewing Quarto, ggplot and dplyr\n\n\n\nLily Cook\n\n\nApr 7, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/lab1/index.html",
+    "href": "posts/lab1/index.html",
+    "title": "Lab 1",
+    "section": "",
+    "text": "library(tidyverse)\nlibrary(ggridges)"
+  },
+  {
+    "objectID": "posts/lab1/index.html#quarto",
+    "href": "posts/lab1/index.html#quarto",
+    "title": "Lab 1",
+    "section": "Quarto",
+    "text": "Quarto\nFirst, let’s make sure you know how to use Markdown formatting to style a Quarto document.\n\nMake this text bold.\nMake this text italicized.\nMake these into a bullet point list:\n\n\nApples\nBananas\nPotatoes\n\n\nEdit the YAML to remove warning messages from being output in the rendered HTML file\nUsing code chunk options, make it so this chunk shows the plot but not the source code:\n\n\n\n\n\n\n\n\n\n\n\nUsing code chunk options, remove the messages about bandwidth geom_density_ridges() chose to use:\n\n\nggplot(data = mpg, \n       mapping = aes(y = manufacturer, x = hwy)) + \n  geom_density_ridges() +\n  labs(x = \"\",\n       y = \"\", \n       title = \"Highway Milage (mpg) for Different Car Manufacturers\"\n       )\n\n\n\n\n\n\n\n\n\nUsing code chunk options, make it so that these plots are printed side-by-side:\n\nggplot(data = mpg, \n       mapping = aes(y = manufacturer, x = hwy)) + \n  geom_boxplot() +\n  labs(x = \"\",\n       y = \"\", \n       title = \"Highway Milage (mpg) for Different Car Manufacturers\"\n       )\nggplot(data = mpg, \n       mapping = aes(y = manufacturer, x = hwy)) + \n  geom_density_ridges() +\n  labs(x = \"\",\n       y = \"\", \n       title = \"Highway Milage (mpg) for Different Car Manufacturers\"\n       )\n\n\n\n\n\n\n\n\n\n\n\nUsing code chunk options, make it so this chunk shows the code but not the output:\n\n\n2 + 2\n\n\nUsing code chunk options, make it so the file can still knit even though this chunk has an error\n\n\n2 + a\n\n\nUsing code chunk options, create a descriptive label for each of the code chunks above."
+  },
+  {
+    "objectID": "posts/lab1/index.html#data-wrangling-review",
+    "href": "posts/lab1/index.html#data-wrangling-review",
+    "title": "Lab 1",
+    "section": "Data Wrangling Review",
+    "text": "Data Wrangling Review\nSince you already seen some ggplots, let’s do a bit of review on data handling. In this class, we will exclusively make use of tools from the tidyverse suite of packages to perform our data cleaning and wrangling operations. If you are less familiar with these packages or it’s been some time since you used them, I would strongly recommend referencing the function documentation!\nFor these problems, we will continue to work with the mpg data frame, making various changes to the data to clean it up.\n\nThe fl variable describes the type of fuel for each car, with levels: p, r, e, d, and c. Do some research into what each of these labels mean! Then, use the if_else() function to create a new variable (fuel_type) with two levels: petrol (any car using petroleum-based gas) and alternative energy (any car not using petroleum-based gas).\n\nP: premium, R: regular, E: electric, D: diesel, C: Compressed Natural Gas (CNG) (no clear official documentation, this could be incorrect)\n\nmpg &lt;- mpg %&gt;%\n  mutate(fuel_type = if_else(fl == \"c\"|fl==\"e\", \"alternative energy\",\"petrol\"))\n\n\nThe drv variable describes if the car has front drive (f), rear drive (r), or four wheel drive (4). Let’s make better labels for these values! Specifically, use the case_when() function to change the drv variable to have the following levels: front, rear, four wheel.\n\n\nmpg &lt;- mpg %&gt;%\n  mutate(drv = case_when(\n    drv == \"f\" ~ \"front\",\n    drv == \"r\" ~ \"rear\",\n    drv == \"4\" ~ \"four wheel\"\n  ))\n\n13. The trans variable contains two pieces of information, (1) the transmission style (auto or manual) and the specific type of transmission (e.g., l5, m5). Using the str_split() function, create a new variable (trans_type) containing the specific type of transmission of each car. Once you’ve made this new variable, use the rename() function to change the name of the trans column to trans_style.\nHint: You will need to deal with the stray parenthesis! (string split + remove extra “)” )\n\nmpg &lt;- mpg %&gt;% \n  mutate(trans_type = str_split(trans, \"\\\\(\", simplify = T)[,2],\n         trans_type = str_remove(trans_type, \"\\\\)\"),\n         trans = str_split(trans, \"\\\\(\", simplify = T)[,1]\n         ) %&gt;%\n  rename(trans_style = trans)"
+  },
+  {
+    "objectID": "posts/lab1/index.html#getting-to-know-your-classmates",
+    "href": "posts/lab1/index.html#getting-to-know-your-classmates",
+    "title": "Lab 1",
+    "section": "Getting to know your classmates",
+    "text": "Getting to know your classmates\n\nFind someone who took Stat 331 from a different professor than you. Compare your experiences. Tell me their name and professor. List one or two things that you think you learned more about, and one or two things that they learned more about.\nJacob (the GOAT) took STAT 331 with Dr. Theobold.\nJacob learned more about stringr. I did more work with dplyr and tidyverse as this was the main focus of the course.\nFind someone in the class who does not share your birth month. Tell me their name and birthday, and use R to find out how many days apart your birthdays are.\nRachel’s birthday is August 14, 2002. Mine is July 11, 2002.\n\nstart_date &lt;- as.Date(\"2002-07-11\")\nend_date   &lt;- as.Date(\"2002-08-14\")\nnum_days &lt;- end_date - start_date\nnum_days\n\nTime difference of 34 days"
   }
 ]

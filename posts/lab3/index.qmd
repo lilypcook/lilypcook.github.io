@@ -1,0 +1,13 @@
+---
+title: "Lab 3"
+format: html
+description: "Static Quarto Dashboard"
+author:
+  - name: Lily Cook
+date: 04-21-2025
+categories: [Advanced R] # add cover with image: preview-image.png
+draft: false 
+execute: 
+  echo: true
+  warning: false
+---

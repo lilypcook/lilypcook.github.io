@@ -1,0 +1,13 @@
+---
+title: "Lab 2"
+format: html
+description: "Advanced Visualizations"
+author:
+  - name: Lily Cook
+date: 04-14-2025
+categories: [Advanced R] # add cover with image: preview-image.png
+draft: false 
+execute: 
+  echo: true
+  warning: false
+---

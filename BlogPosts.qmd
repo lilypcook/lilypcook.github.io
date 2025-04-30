@@ -1,5 +1,5 @@
 ---
-title: "BlogPosts"
+title: "Blog Posts"
 format: html
 listing: 
   contents: posts # all Quarto docs in the `posts` directory will be included on your listing page

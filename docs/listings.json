@@ -2,9 +2,10 @@
   {
     "listing": "/BlogPosts.html",
     "items": [
-      "/posts/lab2/index.html",
-      "/posts/lab3/index.html",
+      "/posts/gradereflection/index.html",
       "/posts/lab4/index.html",
+      "/posts/lab3/index.html",
+      "/posts/lab2/index.html",
       "/posts/lab1/index.html"
     ]
   }
