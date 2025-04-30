@@ -1,11 +1,18 @@
 ---
-title: "lilypcook.github.io"
+title: "Lily Cook"
+image: "media/lily.jpeg"
+toc: false
+about: 
+  template: jolla
+  image-shape: rounded
+  image-width: 28em
+  links:
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/lilypaintoncook/
+    - text: GitHub
+      href: https://github.com/lilypcook
+    - text: Email
+      href: mailto:lilypcook@gmail.com
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+Hi, I'm Lily. I am a graduate student at Cal Poly, San Luis Obispo currently wrapping up my MS in Statistics, on track to graduate June 2025. I am excited to enter the work force as a data analyst. My time at Cal Poly has equipped me with a robust understanding of statistical methodologies, data modeling, and the power of extracting meaningful insights from complex datasets. I'm eager to apply these skills to help organizations make data-driven decisions and solve real-world problems. I'm a curious and analytical thinker with a passion for uncovering patterns and communicating findings clearly and effectively. I'm excited to connect and explore opportunities in the data analysis field!

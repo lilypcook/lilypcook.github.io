@@ -3,18 +3,29 @@ project:
   output-dir: docs
 
 website:
-  title: "lilypcook.github.io"
-  navbar:
-    left:
+    title: "Lily Cook"
+    navbar:
+     left:
       - href: index.qmd
         text: Home
-      - about.qmd
-
+      - href: about.qmd
+        text: About
+      - href: BlogPosts.qmd 
+        text: Blog
+     right:
+      - icon: github
+        href:  https://github.com/lilypcook/lab-3
+        aria-label: GitHub
+      - icon: linkedin
+        href: https://www.linkedin.com/in/lilypaintoncook/
+        aria-label: LinkedIn
+  
 format:
   html:
-    theme: cosmo
+    theme: minty
     css: styles.css
     toc: true
+    page-layout: full
 
 editor: visual
 
