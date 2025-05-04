@@ -11,3 +11,364 @@ execute:
   echo: true
   warning: false
 ---
+
+# Part One: Identifying Bad Visualizations
+
+If you happen to be bored and looking for a sensible chuckle, you should check out these [Bad Visualisations](https://badvisualisations.tumblr.com/). Looking through these is also a good exercise in cataloging what makes a visualization good or bad.
+
+## Dissecting a Bad Visualization
+
+Below is an example of a less-than-ideal visualization from the collection linked above. It comes to us from data provided for the [Wellcome Global Monitor 2018 report](https://wellcome.ac.uk/reports/wellcome-global-monitor/2018) by the Gallup World Poll:
+
+While there are certainly issues with this image, do your best to tell the story of this graph in words. That is, what is this graph telling you? What do you think the authors meant to convey with it?
+
+1.  This graph tells us about the belief in safety of vaccines in countries by regions of the world. The vertical ordering of the graph seems to tell a story that certain regions have higher beliefs, but this is not true.
+
+2.  List the variables that appear to be displayed in this visualization. *Hint: Variables refer to columns in the data.*
+
+    Region, country, regional median belief in safety of vaccines (%), country belief in safety of vaccines (%)
+
+3.  Now that you're versed in the grammar of graphics (e.g., `ggplot`), list the *aesthetics* used and which *variables* are mapped to each.
+
+    y= country belief in safety of vaccines (%), color = region, x = country
+
+4.  What type of graph would you call this? Meaning, what `geom` would you use to produce this plot?
+
+    scatterplot (geom_point), lines (probably geom_abline), text (geom_text or annotate())
+
+5.  Provide at least four problems or changes that would improve this graph. *Please format your changes as bullet points!*
+
+    -   Change layout of regions. The graph is too tall. Maybe make a grid of regions, or combine onto one graph with region as colors depending on density.
+
+    -   Change coloring of regions. There is red and green on the graph and they are right next to each other in the original graph too.
+
+    -   Remove legend, the regions are labeled on the graph.
+
+    -   Label fewer (or no) countries.
+
+    -   y-axis doesn't make sense
+
+## Improving the Bad Visualization
+
+The data for the Wellcome Global Monitor 2018 report can be downloaded at the following site: [https://wellcome.ac.uk/reports/wellcome-global-monitor/2018](https://wellcome.org/sites/default/files/wgm2018-dataset-crosstabs-all-countries.xlsx)
+
+<!-- at the "Dataset and crosstabs for all countries" link on the right side of the page-->
+
+There are two worksheets in the downloaded dataset file. You may need to read them in separately, but you may also just use one if it suffices.
+
+```{r}
+#| label: read-in-wellcome-data
+#| output: false
+
+library(tidyverse)
+library(readxl)
+
+data.summary <- read_xlsx("wgm2018-dataset-crosstabs-all-countries.xlsx", sheet = 1)
+data.full <- read_xlsx("wgm2018-dataset-crosstabs-all-countries.xlsx", sheet = 2)
+data.dictionary <- read_xlsx("wgm2018-dataset-crosstabs-all-countries.xlsx", sheet = 3)
+
+country.names <- '1=United States, 2=Egypt, 3=Morocco, 4=Lebanon, 5=Saudi Arabia, 6=Jordan, 8=Turkey, 9=Pakistan, 10=Indonesia, 11=Bangladesh, 12=United Kingdom, 13=France, 14=Germany, 15=Netherlands, 16=Belgium, 17=Spain, 18=Italy, 19=Poland, 20=Hungary, 21=Czech Republic, 22=Romania, 23=Sweden, 24=Greece, 25=Denmark, 26=Iran, 28=Singapore, 29=Japan, 30=China, 31=India, 32=Venezuela, 33=Brazil, 34=Mexico, 35=Nigeria, 36=Kenya, 37=Tanzania, 38=Israel, 39=Palestinian Territories, 40=Ghana, 41=Uganda, 42=Benin, 43=Madagascar, 44=Malawi, 45=South Africa, 46=Canada, 47=Australia, 48=Philippines, 49=Sri Lanka, 50=Vietnam, 51=Thailand, 52=Cambodia, 53=Laos, 54=Myanmar, 55=New Zealand, 57=Botswana, 60=Ethiopia, 61=Mali, 62=Mauritania, 63=Mozambique, 64=Niger, 65=Rwanda, 66=Senegal, 67=Zambia, 68=South Korea, 69=Taiwan, 70=Afghanistan, 71=Belarus, 72=Georgia, 73=Kazakhstan, 74=Kyrgyzstan, 75=Moldova, 76=Russia, 77=Ukraine, 78=Burkina Faso, 79=Cameroon, 80=Sierra Leone, 81=Zimbabwe, 82=Costa Rica, 83=Albania, 84=Algeria, 87=Argentina, 88=Armenia, 89=Austria, 90=Azerbaijan, 96=Bolivia, 97=Bosnia and Herzegovina, 99=Bulgaria, 100=Burundi, 103=Chad, 104=Chile, 105=Colombia, 106=Comoros, 108=Republic of Congo, 109=Croatia, 111=Cyprus, 114=Dominican Republic, 115=Ecuador, 116=El Salvador, 119=Estonia, 121=Finland, 122=Gabon, 124=Guatemala, 125=Guinea, 128=Haiti, 129=Honduras, 130=Iceland, 131=Iraq, 132=Ireland, 134=Ivory Coast, 137=Kuwait, 138=Latvia, 140=Liberia, 141=Libya, 143=Lithuania, 144=Luxembourg, 145=Macedonia, 146=Malaysia, 148=Malta, 150=Mauritius, 153=Mongolia, 154=Montenegro, 155=Namibia, 157=Nepal, 158=Nicaragua, 160=Norway, 163=Panama, 164=Paraguay, 165=Peru, 166=Portugal, 173=Serbia, 175=Slovakia, 176=Slovenia, 183=Eswatini, 184=Switzerland, 185=Tajikistan, 186=The Gambia, 187=Togo, 190=Tunisia, 191=Turkmenistan, 193=United Arab Emirates, 194=Uruguay, 195=Uzbekistan, 197=Yemen, 198=Kosovo, 202=Northern Cyprus' 
+
+country.names <- strsplit(country.names, split = ",")
+country.names <- country.names[[1]]
+country.names <- as_tibble(country.names)
+country.names <- separate_wider_delim(country.names, 
+                                      delim = "=",
+                                      cols = c("value"), 
+                                      names = c("WP5", "country"))
+
+country.names <- country.names %>% mutate(WP5 = as.numeric(WP5))
+data.full <- merge(data.full, country.names, by = "WP5")
+
+region.names <- "0=Not assigned, 1=Eastern Africa,2=Central Africa,3=North Africa,4=Southern Africa,5=Western Africa,6=Central America and Mexico,7=Northern America,8=South America,9=Central Asia,10=East Asia,11=Southeast Asia,12=South Asia,13=Middle East,14=Eastern Europe,15=Northern Europe,16=Southern Europe,17=Western Europe,18=Aus/NZ"
+
+region.names <- strsplit(region.names, split = ",")
+region.names <- region.names[[1]]
+region.names <- as_tibble(region.names)
+region.names <- separate_wider_delim(region.names, 
+                                     delim = "=", 
+                                     cols = c("value"), 
+                                     names = c("Regions_Report", "Region_Name"))
+
+region.names <- region.names %>% mutate(Regions_Report = as.numeric(Regions_Report))
+data.full <- merge(data.full, region.names, by = "Regions_Report")
+
+data.full <- data.full %>% mutate(region = case_when(
+    Regions_Report %in% c(1, 2, 4, 5) ~ "Sub-Saharan Africa",
+    Regions_Report %in% c(6, 7, 8) ~ "Americas",
+    Regions_Report %in% c(9, 10, 11, 12, 18) ~ "Asia",
+    Regions_Report %in% c(3, 13) ~ "Middle East and North Africa",
+    Regions_Report %in% c(15, 16, 17, 0) ~ "Europe",
+    Regions_Report %in% c(14) ~ "Former Soviet Union"
+  ))
+
+```
+
+6.  Improve the visualization above by either re-creating it with the issues you identified fixed OR by creating a new visualization that you believe tells the same story better.
+
+```{r}
+#| label: new-and-improved-visualization
+#| warning: false
+#| message: false
+
+percents <- data.full %>% select(country, region, Q25) %>% 
+  drop_na() %>%
+  mutate(agree = ifelse(Q25 < 3, 1, 0)) %>% 
+  group_by(country, region) %>%
+  summarise(totagree = sum(agree), 
+            tot = n(), 
+            pctagree = totagree/tot)
+
+medians <- percents %>%
+  group_by(region)%>%
+  summarise(medregion = median(pctagree))
+
+
+
+percents %>%
+    ggplot() +
+    geom_vline(data = medians, aes(xintercept = medregion), color = "black")+
+    geom_dotplot(aes(x = pctagree, fill = region), 
+                 method = "histodot", 
+                 dotsize = 0.6, 
+                 binwidth = 0.01) +
+    facet_wrap(~region, ncol = 1)+
+    geom_text(aes(x = 0.3, y = 0.5, label = region, color = region), 
+              hjust = "inward", 
+              size =5, 
+              family = "Times",
+              fontface = "bold")+
+    scale_fill_brewer(palette = "Set2") +
+    scale_color_brewer(palette = "Set2")+
+    theme_minimal() +
+    theme(legend.position = "none",
+      panel.grid.major.y = element_blank(),
+      panel.grid.minor.y = element_blank(),
+      axis.text.y = element_blank(),
+      strip.text = element_blank(),
+      text= element_text(family = "Times"),
+      plot.title = element_text(face = "bold")) +
+      scale_x_continuous(labels = scales::percent_format(accuracy = 1))+
+      labs(title = "Percent of people who believe vaccines are safe by country and global region", subtitle = "Black lines represent region median", 
+           x = "", y = "")
+
+  
+
+```
+
+I decided to create a dotplot to better show the distributions of the regions, and make better use of the y-axis. I also removed labels because they were distracting and messy, and did not include all countries.
+
+# Part Two: Broad Visualization Improvement
+
+The full Wellcome Global Monitor 2018 report can be found here: <https://wellcome.ac.uk/sites/default/files/wellcome-global-monitor-2018.pdf>. Surprisingly, the visualization above does not appear in the report despite the citation in the bottom corner of the image!
+
+## Second Data Visualization Improvement
+
+**For this second plot, you must select a plot that uses maps so you can demonstrate your proficiency with the `leaflet` package!**
+
+7.  Select a data visualization in the report that you think could be improved. Be sure to cite both the page number and figure title. Do your best to tell the story of this graph in words. That is, what is this graph telling you? What do you think the authors meant to convey with it?
+
+    Chart 5.7, page 121
+
+8.  List the variables that appear to be displayed in this visualization.
+
+    Country, % of people claiming to have ever vaccinated their children (Q28)
+
+9.  Now that you're versed in the grammar of graphics (ggplot), list the aesthetics used and which variables are specified for each.
+
+    fill = % of children vaccinated
+
+10. What type of graph would you call this?
+
+    Map
+
+11. List all of the problems or things you would improve about this graph.
+
+    -   The less than 70% category color is very close to the country not surveyed color.
+
+    -   Too much text in title/subtitle - people will not read all of that
+
+    -   In my opinion, green on a map does not necessarily convey that there is data being communicated on this graph- the color green is often associated with land in general. It could be beneficial to change the color so people don't just scroll past this map.
+
+12. Improve the visualization above by either re-creating it with the issues you identified fixed OR by creating a new visualization that you believe tells the same story better.
+
+```{r}
+#| label: second-improved-visualization
+#| message: false
+#| warning: false
+
+library(leaflet)
+library(forcats)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+vaccinepct <- data.full %>% select(country, Q28) %>% drop_na() %>% 
+  group_by(country) %>% 
+  summarise(tot = n(), 
+            totyes = sum(Q28==1), 
+            pctyes = totyes/tot) %>%
+  mutate(pctgroup = case_when(
+    pctyes < 0.7 ~ 1,
+    pctyes >= 0.7 & pctyes < 0.8 ~ 2,
+    pctyes >= 0.8 & pctyes < 0.9 ~ 3,
+    pctyes >= 0.9 & pctyes < 0.95 ~ 4,
+    pctyes >= 0.95 ~ 5
+  ))
+
+mapdata <-  ne_countries(scale = "medium", returnclass = "sf")
+
+vaccinepct <- vaccinepct %>%
+  mutate(country = case_when(
+    country == "Eswatini" ~ "Kingdom of eSwatini",
+    country == "Ivory Coast" ~ "Côte d'Ivoire",
+    country == "Laos" ~ "Lao PDR",
+    country == "Macedonia" ~ "North Macedonia",
+    country == "Palestinian Territories" ~ "Palestine",
+    country == "Republic of Congo" ~ "Republic of the Congo",
+    country == "Russia" ~ "Russian Federation",
+    country == "South Korea" ~ "Republic of Korea",
+    TRUE ~ country), 
+    name_long = country)
+
+vaccinepct[which(!(vaccinepct$name_long %in% mapdata$name_long)), 1]
+
+mergedmap <- left_join(mapdata, vaccinepct, by = "name_long")
+
+mergedmap <- mergedmap %>%
+  mutate(pctgroup = case_when(
+    pctyes < 0.7 ~ 1,
+    pctyes >= 0.7 & pctyes < 0.8 ~ 2,
+    pctyes >= 0.8 & pctyes < 0.9 ~ 3,
+    pctyes >= 0.9 & pctyes < 0.95 ~ 4,
+    pctyes >= 0.95 ~ 5,
+    is.na(pctyes) ~ 0),
+    percentlabel = round(pctyes * 100, 2),
+    percentlabel = ifelse(is.na(percentlabel), "Not surveyed", paste(percentlabel,"%")),
+    grouplabel = case_when(
+      pctgroup == 0 ~ "Not surveyed",
+      pctgroup == 1 ~ "Less than 70%",
+      pctgroup == 2 ~ "70% to 79%",
+      pctgroup == 3 ~ "80% to 89%",
+      pctgroup == 4 ~ "90% to 94%",
+      pctgroup == 5 ~ "95% and above"
+    ), 
+    grouplabel = fct_reorder(grouplabel, pctgroup))
+
+mappal <- colorNumeric('RdPu', domain = mergedmap$pctgroup)
+labelpal <- colorFactor('RdPu', domain = mergedmap$grouplabel)
+
+leaflet(mergedmap) %>%
+  addTiles() %>%
+  addPolygons(
+    fillColor = ~ mappal(pctgroup),
+    weight = 1, fillOpacity = 0.7,
+    color = "lightgray",
+    label = ~ paste(name_long, ":", percentlabel)) %>%
+  addLegend(
+    pal = labelpal, values = ~ grouplabel,  
+    title = "People who say their children have been vaccinated"
+  )
+  
+
+```
+
+## Third Data Visualization Improvement
+
+**For this third plot, you must use one of the other `ggplot2` extension packages mentioned this week (e.g., `gganimate`, `plotly`, `patchwork`, `cowplot`).**
+
+13. Select a data visualization in the report that you think could be improved. Be sure to cite both the page number and figure title. Do your best to tell the story of this graph in words. That is, what is this graph telling you? What do you think the authors meant to convey with it?
+
+    Chart 4.5, page 84
+
+    This chart is trying to categorize people based on their response to two of the questions. There seems to be the most people in the "Enthusiasts" and "The Included" category. Other than that I have really no idea what they are trying to say with this graph. I think it is poorly done.
+
+14. List the variables that appear to be displayed in this visualization.
+
+    Response type, views on extent to which science benefits society (country level), views on extent to which science benefits people normally (personal level)
+
+15. Now that you're versed in the grammar of graphics (ggplot), list the aesthetics used and which variables are specified for each.
+
+    This seems to be a geom_point(), with aes(x= personal level, y = country level, fill = category, size = percentage in each category)
+
+16. What type of graph would you call this?
+
+    Bubble chart/ plot
+
+17. List all of the problems or things you would improve about this graph.
+
+    -   I don't think this is necessarily a good graph to tell the story that is trying to be told. I think a bar chart would be better, as people are not good at identifying/comparing area/size of circles.
+
+    -   If it is important to tell the story of where every category is located on the plot, a scatterplot could be good
+
+    -   It is not clear what each category corresponds to in terms of answers given.
+
+    -   Axis labels :(
+
+18. Improve the visualization above by either re-creating it with the issues you identified fixed OR by creating a new visualization that you believe tells the same story better.
+
+```{r}
+#| label: third-improved-visualization
+#| message: false
+#| warning: false
+
+
+library(cowplot)
+library(RColorBrewer)
+
+science <- data.full %>% 
+  select(Q17, Q18, ViewOfScience) %>% 
+  filter(ViewOfScience != 99, Q18 %in% c(1,2)) %>%
+  mutate(ViewOfScience = as.factor(ViewOfScience),
+         label = case_when(
+           ViewOfScience == 1 ~ "Enthusiast \nYes, Yes",
+           ViewOfScience == 2 ~ "Included \nYes, No",
+           ViewOfScience == 3 ~ "Excluded \nNo, Yes",
+           ViewOfScience == 4 ~ "Sceptic \nNo, No"
+         ))
+
+science_long <- pivot_longer(science, cols = c(Q17, Q18), 
+                            names_to = "Q", values_to = "Response") %>%
+  mutate(Response = factor(Response),
+         label = ifelse(Response == 1, "Yes", "No"))
+
+stacked <- ggplot(data = science, aes(x = "", fill = ViewOfScience))+
+  geom_bar(position = "fill")+
+  geom_text(aes(label = label), 
+            stat = "count",
+            position = position_fill(vjust = 0.5),
+            family = "Times") +
+  scale_y_continuous(minor_breaks = NULL, "", 
+                     labels = scales::percent_format(accuracy = 1))+
+  scale_fill_brewer(palette = "Paired")+
+  theme_cowplot(12)+
+  theme(text = element_text("Times"), 
+        legend.position = "none", 
+        plot.title = element_text(face = "bold"))+
+  labs(title = "Combined and individual views of peoples' opinions on benefits of science on a personal and country level",
+       subtitle = "Labels on left show overall and single views on 1) individual and 2) country level benefits of science",
+       x = "Combined Opinion")
+
+
+
+sidebyside <- ggplot(data = science_long,
+                    aes(x = Q, fill = Response))+
+  geom_bar(position = "fill")+
+  geom_text(aes(label = label), 
+            stat = "count",
+            position = position_fill(vjust = 0.5),
+            family = "Times")+ 
+  scale_y_continuous(breaks = NULL, "", 
+                     labels = element_blank(),
+                     )+
+  scale_x_discrete(labels = c("Individual Level", "Country level"))+
+  theme_cowplot(12)+
+  theme(text = element_text("Times"), 
+        legend.position = "none", 
+        plot.title = element_text(face = "bold"))+
+  labs(title = "",
+       x = "Single Opinion") +
+  scale_fill_manual(values = brewer.pal(12, "Paired")[9:10])
+
+plot_grid(stacked,sidebyside)
+
+```
