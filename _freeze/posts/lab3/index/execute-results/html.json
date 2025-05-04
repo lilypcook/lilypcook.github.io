@@ -1,0 +1,12 @@
+{
+  "hash": "38b37ab711b5861d79465855fd4e6886",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Lab 3\"\nformat: html\ndescription: \"Static Quarto Dashboard\"\nauthor:\n  - name: Lily Cook\ndate: 04-21-2025\ncategories: [Advanced R] # add cover with image: preview-image.png\ndraft: false \nexecute: \n  echo: true\n  warning: false\n---\n\n```{html}\n\n<center>\n\n<iframe src=\"<https://lilypcook.quarto.pub/lab-3-dashboard---lily-cook/#belief-in-vaccines>\" frameborder=\"0\" width=\"960\" height=\"569\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"\\>\n\n</iframe>\n\n</center>\n\n```\n\n",
+    "supporting": [
+      "index_files/figure-html"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

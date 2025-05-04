@@ -1,0 +1,12 @@
+{
+  "hash": "ad95efa23494ed10e4a9b3d3a41e1be7",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Lab 4\"\nformat: html\ndescription: \"Dynamic Quarto Dashboard\"\nauthor:\n  - name: Lily Cook\ndate: 04-28-2025\ncategories: [Advanced R] # add cover with image: preview-image.png\ndraft: false \nexecute: \n  echo: true\n  warning: false\n---\n\n```{html}\n\n<center>\n\n<iframe src=\"<https://lilypcook.shinyapps.io/lab4/>\" \n  frameborder=\"0\" \n  width=\"960\" \n  height=\"569\" \n  allowfullscreen=\"true\" \n  mozallowfullscreen=\"true\" \n  webkitallowfullscreen=\"true\"\\>\n\n</iframe>\n\n</center>\n\n```\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

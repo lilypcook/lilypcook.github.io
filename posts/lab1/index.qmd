@@ -9,6 +9,10 @@ draft: false
 execute: 
   echo: true
   warning: false
+format: html
+embed-resources: true
+editor: source
+
 ---
 
 ```{r}
@@ -133,9 +137,9 @@ mpg <- mpg %>%
 
 mpg <- mpg %>%
   mutate(drv = case_when(
-    drv == "f" ~ "front",
-    drv == "r" ~ "rear",
-    drv == "4" ~ "four wheel"
+    drv == "f"~"front",
+    drv == "r"~"rear",
+    drv == "4"~"four wheel"
   ))
 
 ```
@@ -148,10 +152,10 @@ mpg <- mpg %>%
 
 mpg <- mpg %>% 
   mutate(trans_type = str_split(trans, "\\(", simplify = T)[,2],
-         trans_type = str_remove(trans_type, "\\)"),
+         trans_type = str_remove(trans_type,"\\)"),
          trans = str_split(trans, "\\(", simplify = T)[,1]
          ) %>%
-  rename(trans_style = trans)
+  rename(trans_style=trans)
 
 ```
 

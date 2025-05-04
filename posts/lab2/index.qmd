@@ -10,6 +10,8 @@ draft: false
 execute: 
   echo: true
   warning: false
+editor: visual
+embed-resources: true
 ---
 
 # Part One: Identifying Bad Visualizations
@@ -20,9 +22,11 @@ If you happen to be bored and looking for a sensible chuckle, you should check o
 
 Below is an example of a less-than-ideal visualization from the collection linked above. It comes to us from data provided for the [Wellcome Global Monitor 2018 report](https://wellcome.ac.uk/reports/wellcome-global-monitor/2018) by the Gallup World Poll:
 
-While there are certainly issues with this image, do your best to tell the story of this graph in words. That is, what is this graph telling you? What do you think the authors meant to convey with it?
+![](image/bad-wellcome-graph.jpg)
 
-1.  This graph tells us about the belief in safety of vaccines in countries by regions of the world. The vertical ordering of the graph seems to tell a story that certain regions have higher beliefs, but this is not true.
+1.  While there are certainly issues with this image, do your best to tell the story of this graph in words. That is, what is this graph telling you? What do you think the authors meant to convey with it?
+
+    This graph tells us about the belief in safety of vaccines in countries by regions of the world. The vertical ordering of the graph seems to tell a story that certain regions have higher beliefs, but this is not true.
 
 2.  List the variables that appear to be displayed in this visualization. *Hint: Variables refer to columns in the data.*
 
@@ -170,6 +174,8 @@ The full Wellcome Global Monitor 2018 report can be found here: <https://wellcom
 
     Chart 5.7, page 121
 
+    ![](image/chart5-7.jpg)
+
 8.  List the variables that appear to be displayed in this visualization.
 
     Country, % of people claiming to have ever vaccinated their children (Q28)
@@ -279,6 +285,8 @@ leaflet(mergedmap) %>%
 13. Select a data visualization in the report that you think could be improved. Be sure to cite both the page number and figure title. Do your best to tell the story of this graph in words. That is, what is this graph telling you? What do you think the authors meant to convey with it?
 
     Chart 4.5, page 84
+
+    ![](image/chart4-5.jpg)
 
     This chart is trying to categorize people based on their response to two of the questions. There seems to be the most people in the "Enthusiasts" and "The Included" category. Other than that I have really no idea what they are trying to say with this graph. I think it is poorly done.
 
