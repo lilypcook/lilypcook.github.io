@@ -61,6 +61,7 @@ ggplot(data = mpg,
 ```{r}
 #| label: question 6
 #| message: false
+
 ggplot(data = mpg, 
        mapping = aes(y = manufacturer, x = hwy)) + 
   geom_density_ridges() +
