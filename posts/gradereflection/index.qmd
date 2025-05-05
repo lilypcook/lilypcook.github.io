@@ -6,7 +6,7 @@ author:
   - name: Lily Cook
 date: 05-05-2025
 categories: [Advanced R] 
-image: media/stripes.jpg
+image: ../../media/stripes.jpg
 draft: false 
 execute: 
   echo: true

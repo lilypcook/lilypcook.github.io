@@ -6,7 +6,7 @@ author:
   - name: Lily Cook
 date: 04-21-2025
 categories: [Advanced R] 
-image: media/polkadots.jpg
+image: ../../media/polkadots.jpg
 draft: false 
 execute: 
   echo: true
