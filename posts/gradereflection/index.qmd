@@ -5,7 +5,8 @@ description: "Midterm reflection, up to week 5"
 author:
   - name: Lily Cook
 date: 05-05-2025
-categories: [Advanced R] # add cover with image: preview-image.png
+categories: [Advanced R] 
+image: media/stripes.jpg
 draft: false 
 execute: 
   echo: true

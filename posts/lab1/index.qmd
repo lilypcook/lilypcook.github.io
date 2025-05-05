@@ -4,7 +4,8 @@ description: "Reviewing Quarto, ggplot and dplyr"
 author:
   - name: Lily Cook
 date: 04-07-2025
-categories: [Advanced R] # add coveer with image: preview-image.png
+categories: [Advanced R] 
+image: media/argyle.jpg
 draft: false 
 execute: 
   echo: true
