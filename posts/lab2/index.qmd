@@ -377,6 +377,6 @@ sidebyside <- ggplot(data = science_long,
        x = "Single Opinion") +
   scale_fill_manual(values = brewer.pal(12, "Paired")[9:10])
 
-plot_grid(stacked,sidebyside)
+plot_grid(stacked, sidebyside)
 
 ```

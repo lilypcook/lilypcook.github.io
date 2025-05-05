@@ -352,7 +352,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="justification" class="level3">
 <h3 class="anchored" data-anchor-id="justification">Justification:</h3>
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+<p><a href="../../posts/lab2/index.html">Lab 2</a>: leaflet</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mappal <span class="ot">&lt;-</span> <span class="fu">colorNumeric</span>(<span class="st">'RdPu'</span>, <span class="at">domain =</span> mergedmap<span class="sc">$</span>pctgroup)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>labelpal <span class="ot">&lt;-</span> <span class="fu">colorFactor</span>(<span class="st">'RdPu'</span>, <span class="at">domain =</span> mergedmap<span class="sc">$</span>grouplabel)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(mergedmap) <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addPolygons</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">fillColor =</span> <span class="sc">~</span> <span class="fu">mappal</span>(pctgroup),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight =</span> <span class="dv">1</span>, <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"lightgray"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="sc">~</span> <span class="fu">paste</span>(name_long, <span class="st">":"</span>, percentlabel)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLegend</span>(</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">pal =</span> labelpal, <span class="at">values =</span> <span class="sc">~</span> grouplabel,  </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"People who say their children have been vaccinated"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In lab 2, I was introduced to the leaflet package for the first time. I was able to create an interactive map filled by colors using functions from the package <code>colorNumeric</code> and <code>colorFactor</code>. I demonstrated a solid understanding of creating maps, labelling them, and creating interactive features.</p>
+<p><a href="../../posts/lab4/index.html">Lab 4</a>: (code seen on <a href="https://github.com/lilypcook/lab-4/blob/main/lab4.qmd">GitHub</a>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">checkboxGroupInput</span>(<span class="st">"selected_regions"</span>, <span class="st">"Select Regions:"</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">choices =</span> <span class="fu">unique</span>(percents<span class="sc">$</span>region),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">selected =</span> <span class="fu">unique</span>(percents<span class="sc">$</span>region))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">checkboxInput</span>(<span class="st">"show_median"</span>, <span class="st">"Show Region Medians"</span>, <span class="at">value =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a> output<span class="sc">$</span>avgcard <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  filtered_data <span class="ot">&lt;-</span> percents <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(region <span class="sc">%in%</span> input<span class="sc">$</span>selected_regions)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(filtered_data<span class="sc">$</span>pctagree)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="fu">round</span>(mean <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">2</span>), <span class="st">"%"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In lab 4, I was experience using Shiny for the first time. This was a completely new way of interacting with R for me, and I enjoyed being able to create apps. I feel I succeeded in learning this skill in a timely manner and implementing Shiny in a meaningful way.</p>
 </section>
 </section>
 <section id="il-2-online-resources" class="level2">
@@ -367,16 +403,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="justification-1" class="level3">
 <h3 class="anchored" data-anchor-id="justification-1">Justification:</h3>
-<p>Lab 2: LINK</p>
-<p>Using ChatGPT to solve labeling issue with map</p>
-<p>Lab 3: LINK</p>
-<p>Finding and using various online resources to create and stylize dashboard appropriately</p>
-<p>Using Mine’s dashboard videos as references on creating my own dashboard</p>
-<p>Icons used in quick cards: <a href="https://icons.getbootstrap.com/" class="uri">https://icons.getbootstrap.com/</a></p>
-<p>Theming: <a href="https://quarto.org/docs/dashboards/theming.html" class="uri">https://quarto.org/docs/dashboards/theming.html</a></p>
-<p>This website</p>
-<p>Adding an icon to the tab while it is open</p>
-<p><a href="https://stackoverflow.com/questions/74165889/add-icon-to-browser-tab-in-quarto" class="uri">https://stackoverflow.com/questions/74165889/add-icon-to-browser-tab-in-quarto</a></p>
+<p><a href="../../posts/lab2/index.html">Lab 2</a>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(mergedmap) <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> .... <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLegend</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pal =</span> labelpal, <span class="at">values =</span> <span class="sc">~</span> grouplabel,  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"People who say their children have been vaccinated"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Lab 2 presented an issue with properly labeling the leaflet map. Since this was a new package for me, troubleshooting was difficult. So, I turned to ChatGPT to help fix the <code>addLegend</code> function, specifically the <code>pal</code> and <code>values</code> arguments. ChatGPT was successful and provided me with the lines of code pictured above.</p>
+<p><a href="../../posts/lab3/index.html">Lab 3</a>: (code seen on <a href="https://github.com/lilypcook/lab-3/blob/main/lab3.qmd">GitHub</a>)</p>
+<p>Lab 3 was a fun chance to play around with stylizing options, specifically themes and icons. I used online resources to help me with these steps and to determine what I wanted my dashboard to look like. Below are two resources I used:</p>
+<p><a href="https://icons.getbootstrap.com/">Icons used in quick cards</a> <a href="https://quarto.org/docs/dashboards/theming.html">Theming</a></p>
+<p>This website: (code seen on <a href="https://github.com/lilypcook/lilypcook.github.io/blob/main/_quarto.yml">GitHub</a>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>website<span class="sc">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    title<span class="sc">:</span> <span class="st">"Lily Cook"</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    navbar<span class="sc">:</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>     left<span class="sc">:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span> href<span class="sc">:</span> index.qmd</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        text<span class="sc">:</span> Home</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span> href<span class="sc">:</span> about.qmd</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        text<span class="sc">:</span> About</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span> href<span class="sc">:</span> BlogPosts.qmd </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        text<span class="sc">:</span> Blog</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>     right<span class="sc">:</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span> icon<span class="sc">:</span> github</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        href<span class="sc">:</span>  https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>lilypcook<span class="sc">/</span>lab<span class="dv">-3</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        aria<span class="sc">-</span>label<span class="sc">:</span> GitHub</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      <span class="sc">-</span> icon<span class="sc">:</span> linkedin</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        href<span class="sc">:</span> https<span class="sc">:</span><span class="er">//</span>www.linkedin.com<span class="sc">/</span><span class="cf">in</span><span class="sc">/</span>lilypaintoncook<span class="sc">/</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>        aria<span class="sc">-</span>label<span class="sc">:</span> LinkedIn</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    favicon<span class="sc">:</span> <span class="st">"media/flower-icon.jpg"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When working on this website, I found that there was no icon on the browser tab when, and I did not like that, so I turned to the internet to help, and it was successful. <a href="https://stackoverflow.com/questions/74165889/add-icon-to-browser-tab-in-quarto">This</a> post on Stack Overflow pointed me in the right direction.</p>
 </section>
 </section>
 <section id="il-summary" class="level2">
@@ -407,7 +468,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="justification-2" class="level3">
 <h3 class="anchored" data-anchor-id="justification-2">Justification:</h3>
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+<p>Creating repos</p>
+<p>This website is hosted through github</p>
 </section>
 </section>
 <section id="rw-2-notebooks" class="level2">
@@ -421,7 +483,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="justification-3" class="level3">
 <h3 class="anchored" data-anchor-id="justification-3">Justification:</h3>
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+<p>Lab 1: Stylizing document</p>
+<p>Lab 3: Chunk options for creating dashboard</p>
 </section>
 </section>
 <section id="rw-3-code-style" class="level2">
@@ -434,7 +497,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="justification-4" class="level3">
 <h3 class="anchored" data-anchor-id="justification-4">Justification</h3>
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+<p>Lab 3 snippet of cleaning data</p>
+<p>Need more comments - but label chunks and use logical naming conventions</p>
 </section>
 </section>
 <section id="rw-summary" class="level2">
@@ -509,7 +573,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="justification-7" class="level3">
 <h3 class="anchored" data-anchor-id="justification-7">Justification:</h3>
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+<p>Lab 2 data cleaning - read xlsx</p>
+<p>Lab 4 preprocessing to help read time - read csv</p>
 </section>
 </section>
 <section id="dm-2-data-wrangling" class="level2">
@@ -523,7 +588,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="justification-8" class="level3">
 <h3 class="anchored" data-anchor-id="justification-8">Justification:</h3>
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+<p>Lab 3: separate wider delim, group by and summarising, left join and casewhen</p>
 </section>
 </section>
 <section id="dm-3-data-formats" class="level2">
@@ -533,12 +598,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>I can scrape data from the web and convert it into a data frame</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Fill in the line below with your self-assigned level for this objective.</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>my_level <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>portfolio_levels <span class="ot">&lt;-</span> portfolio_levels <span class="sc">%&gt;%</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">Objective =</span> <span class="st">"DM-3"</span>, </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Level =</span> my_level))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Fill in the line below with your self-assigned level for this objective.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>my_level <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>portfolio_levels <span class="ot">&lt;-</span> portfolio_levels <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>(<span class="fu">tibble</span>(<span class="at">Objective =</span> <span class="st">"DM-3"</span>, </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Level =</span> my_level))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="level-1" class="level3">
 <h3 class="anchored" data-anchor-id="level-1">Level: 1</h3>
@@ -575,7 +640,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="justification-10" class="level3">
 <h3 class="anchored" data-anchor-id="justification-10">Justification:</h3>
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+<p>Lab 3 dotplot</p>
 </section>
 </section>
 <section id="pv-2-dynamic-visualizations" class="level2">
@@ -589,8 +654,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="justification-11" class="level3">
 <h3 class="anchored" data-anchor-id="justification-11">Justification:</h3>
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
-<p>Also mention thesis?</p>
+<p>leaflet in lab 3</p>
 </section>
 </section>
 <section id="pv-3-interactive-visualizations" class="level2">
@@ -603,7 +667,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="justification-12" class="level3">
 <h3 class="anchored" data-anchor-id="justification-12">Justification:</h3>
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+<p>Shiny in lab 4</p>
+<p>improvements could be made, but not in interactivity</p>
+<p>Use of check boxes and sliders to update a visualization, text box and table</p>
 </section>
 </section>
 <section id="pv-summary" class="level2">

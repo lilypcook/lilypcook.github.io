@@ -63,7 +63,61 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+[Lab 2](../lab2/index.qmd): leaflet
+
+```{r}
+#| eval: false
+
+mappal <- colorNumeric('RdPu', domain = mergedmap$pctgroup)
+labelpal <- colorFactor('RdPu', domain = mergedmap$grouplabel)
+
+leaflet(mergedmap) %>%
+  addTiles() %>%
+  addPolygons(
+    fillColor = ~ mappal(pctgroup),
+    weight = 1, fillOpacity = 0.7,
+    color = "lightgray",
+    label = ~ paste(name_long, ":", percentlabel)) %>%
+  addLegend(
+    pal = labelpal, values = ~ grouplabel,  
+    title = "People who say their children have been vaccinated"
+  )
+
+```
+
+In lab 2, I was introduced to the leaflet package for the first time. I was able to create an interactive map filled by colors using functions from the package `colorNumeric` and `colorFactor`. I demonstrated a solid understanding of creating maps, labelling them, and creating interactive features.
+
+[Lab 4](../lab4/index.qmd): (code seen on [GitHub](https://github.com/lilypcook/lab-4/blob/main/lab4.qmd))
+
+```{r}
+#| eval: false
+
+checkboxGroupInput("selected_regions", "Select Regions:",
+                   choices = unique(percents$region),
+                   selected = unique(percents$region))
+
+checkboxInput("show_median", "Show Region Medians", value = TRUE)
+
+```
+
+```{r}
+#| eval: false
+
+ output$avgcard <- renderText({
+  filtered_data <- percents %>%
+    filter(region %in% input$selected_regions)
+  
+  mean <- mean(filtered_data$pctagree)
+  
+  paste(round(mean * 100, 2), "%")
+})
+ 
+```
+
+
+In lab 4, I was experience using Shiny for the first time. This was a completely new way of interacting with R for me, and I enjoyed being able to create apps. I feel I succeeded in learning this skill in a timely manner and implementing Shiny in a meaningful way.
+
+
 
 ## \[IL-2\] Online resources:
 
@@ -89,25 +143,56 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-Lab 2: LINK
+[Lab 2](../lab2/index.qmd):
 
-Using ChatGPT to solve labeling issue with map
+```{r}
+#| eval: false
 
-Lab 3: LINK
+leaflet(mergedmap) %>%
+ .... %>%
+  addLegend(
+    pal = labelpal, values = ~ grouplabel,  
+    title = "People who say their children have been vaccinated"
+  )
 
-Finding and using various online resources to create and stylize dashboard appropriately
+```
 
-Using Mine's dashboard videos as references on creating my own dashboard
+Lab 2 presented an issue with properly labeling the leaflet map. Since this was a new package for me, troubleshooting was difficult. So, I turned to ChatGPT to help fix the `addLegend` function, specifically the `pal` and `values` arguments. ChatGPT was successful and provided me with the lines of code pictured above.
 
-Icons used in quick cards: <https://icons.getbootstrap.com/>
 
-Theming: <https://quarto.org/docs/dashboards/theming.html>
+[Lab 3](../lab3/index.qmd): (code seen on [GitHub](https://github.com/lilypcook/lab-3/blob/main/lab3.qmd))
 
-This website
+Lab 3 was a fun chance to play around with stylizing options, specifically themes and icons. I used online resources to help me with these steps and to determine what I wanted my dashboard to look like. Below are two resources I used:
 
-Adding an icon to the tab while it is open
+[Icons used in quick cards](https://icons.getbootstrap.com/)
+[Theming](https://quarto.org/docs/dashboards/theming.html)
 
-<https://stackoverflow.com/questions/74165889/add-icon-to-browser-tab-in-quarto>
+This website: (code seen on [GitHub](https://github.com/lilypcook/lilypcook.github.io/blob/main/_quarto.yml))
+
+```{r}
+#| eval: false
+
+website:
+    title: "Lily Cook"
+    navbar:
+     left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: BlogPosts.qmd 
+        text: Blog
+     right:
+      - icon: github
+        href:  https://github.com/lilypcook/lab-3
+        aria-label: GitHub
+      - icon: linkedin
+        href: https://www.linkedin.com/in/lilypaintoncook/
+        aria-label: LinkedIn
+    favicon: "media/flower-icon.jpg"
+```
+
+When working on this website, I found that there was no icon on the browser tab when, and I did not like that, so I turned to the internet to help, and it was successful. [This](https://stackoverflow.com/questions/74165889/add-icon-to-browser-tab-in-quarto) post on Stack Overflow pointed me in the right direction.
 
 ## IL Summary
 
@@ -161,7 +246,9 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+Creating repos
+
+This website is hosted through github
 
 ## \[RW-2\] Notebooks:
 
@@ -185,7 +272,9 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+Lab 1: Stylizing document
+
+Lab 3: Chunk options for creating dashboard
 
 ## \[RW-3\] Code style
 
@@ -208,7 +297,9 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification
 
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+Lab 3 snippet of cleaning data
+
+Need more comments - but label chunks and use logical naming conventions
 
 ## RW Summary
 
@@ -339,7 +430,9 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+Lab 2 data cleaning - read xlsx
+
+Lab 4 preprocessing to help read time - read csv
 
 ## \[DM-2\] Data Wrangling
 
@@ -363,7 +456,7 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+Lab 3: separate wider delim, group by and summarising, left join and casewhen
 
 ## \[DM-3\] Data Formats
 
@@ -435,7 +528,7 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+Lab 3 dotplot
 
 ## \[PV-2\] Dynamic Visualizations
 
@@ -459,9 +552,7 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
-
-Also mention thesis?
+leaflet in lab 3
 
 ## \[PV-3\] Interactive Visualizations
 
@@ -484,7 +575,11 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-<!-- Insert references to the work shown in the blog(s) on your personal website -->
+Shiny in lab 4
+
+improvements could be made, but not in interactivity
+
+Use of check boxes and sliders to update a visualization, text box and table
 
 ## PV Summary
 
