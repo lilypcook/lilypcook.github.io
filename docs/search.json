@@ -11,7 +11,7 @@
     "href": "BlogPosts.html",
     "title": "Blog Posts",
     "section": "",
-    "text": "These posts are created for Advanced R (STAT 541) at Cal Poly\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGrade Reflection\n\n\n\nAdvanced R\n\n\n\nMidterm reflection, up to week 5\n\n\n\nLily Cook\n\n\nMay 5, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLab 4\n\n\n\nAdvanced R\n\n\n\nDynamic Quarto Dashboard\n\n\n\nLily Cook\n\n\nApr 28, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLab 3\n\n\n\nAdvanced R\n\n\n\nStatic Quarto Dashboard\n\n\n\nLily Cook\n\n\nApr 21, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLab 2\n\n\n\nAdvanced R\n\n\n\nAdvanced Visualizations\n\n\n\nLily Cook\n\n\nApr 14, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLab 1\n\n\n\nAdvanced R\n\n\n\nReviewing Quarto, ggplot and dplyr\n\n\n\nLily Cook\n\n\nApr 7, 2025\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "These posts are created for Advanced R (STAT 541) at Cal Poly\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFinal Grade Reflection\n\n\n\nAdvanced R\n\n\n\nSpring 2025\n\n\n\nLily Cook\n\n\nJun 8, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nLab 9\n\n\n\nAdvanced R\n\n\n\nGenerative Art\n\n\n\nLily Cook\n\n\nJun 2, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nLab 8\n\n\n\nAdvanced R\n\n\n\nWeb Scraping\n\n\n\nLily Cook\n\n\nMay 27, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nLab 7\n\n\n\nAdvanced R\n\n\n\nUsing APIs\n\n\n\nLily Cook\n\n\nMay 19, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nLab 6 - Spicy\n\n\n\nAdvanced R\n\n\n\nPerforming Many Different Versions of an Analysis\n\n\n\nLily Cook\n\n\nMay 12, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLab 4\n\n\n\nAdvanced R\n\n\n\nDynamic Quarto Dashboard\n\n\n\nLily Cook\n\n\nApr 28, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLab 3\n\n\n\nAdvanced R\n\n\n\nStatic Quarto Dashboard\n\n\n\nLily Cook\n\n\nApr 21, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLab 2\n\n\n\nAdvanced R\n\n\n\nAdvanced Visualizations\n\n\n\nLily Cook\n\n\nApr 14, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLab 1\n\n\n\nAdvanced R\n\n\n\nReviewing Quarto, ggplot and dplyr\n\n\n\nLily Cook\n\n\nApr 7, 2025\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/lab2/index.knit.html",
@@ -114,182 +114,182 @@
   {
     "objectID": "posts/gradereflection/index.html",
     "href": "posts/gradereflection/index.html",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "",
     "text": "These objectives show your ability to seek out new information and adapt to new tools to solve data analysis problems.\n\n\n\nI can find and adopt new packages to accomplish tasks.\nI can adapt to different syntax styles (tidy, base, formula style, data.table).\n\n\n\n\n\n\nLab 2: leaflet\n\nmappal &lt;- colorNumeric('RdPu', domain = mergedmap$pctgroup)\nlabelpal &lt;- colorFactor('RdPu', domain = mergedmap$grouplabel)\n\nleaflet(mergedmap) %&gt;%\n  addTiles() %&gt;%\n  addPolygons(\n    fillColor = ~ mappal(pctgroup),\n    weight = 1, fillOpacity = 0.7,\n    color = \"lightgray\",\n    label = ~ paste(name_long, \":\", percentlabel)) %&gt;%\n  addLegend(\n    pal = labelpal, values = ~ grouplabel,  \n    title = \"People who say their children have been vaccinated\"\n  )\n\nIn lab 2, I was introduced to the leaflet package for the first time. I was able to create an interactive map filled by colors using functions from the package colorNumeric and colorFactor. I demonstrated a solid understanding of creating maps, labelling them, and creating interactive features.\nLab 4: (code seen on GitHub)\n\ncheckboxGroupInput(\"selected_regions\", \"Select Regions:\",\n                   choices = unique(percents$region),\n                   selected = unique(percents$region))\n\ncheckboxInput(\"show_median\", \"Show Region Medians\", value = TRUE)\n\n\n output$avgcard &lt;- renderText({\n  filtered_data &lt;- percents %&gt;%\n    filter(region %in% input$selected_regions)\n  \n  mean &lt;- mean(filtered_data$pctagree)\n  \n  paste(round(mean * 100, 2), \"%\")\n})\n\nIn lab 4, I was experience using Shiny for the first time. This was a completely new way of interacting with R for me, and I enjoyed being able to create apps. I feel I succeeded in learning this skill in a timely manner and implementing Shiny in a meaningful way.\n\n\n\n\n\nI can use online resources (e.g., Google, ChatGPT, StackOverflow, YouTube) to solve problems, debug, or find new tools.\nI can use tutorials, etc. to enhance my understanding of new concepts.\nI can find source code for similar projects to use as starting points for my own.\n\n\n\n\n\n\nLab 2:\n\nleaflet(mergedmap) %&gt;%\n .... %&gt;%\n  addLegend(\n    pal = labelpal, values = ~ grouplabel,  \n    title = \"People who say their children have been vaccinated\"\n  )\n\nLab 2 presented an issue with properly labeling the leaflet map. Since this was a new package for me, troubleshooting was difficult. So, I turned to ChatGPT to help fix the addLegend function, specifically the pal and values arguments. ChatGPT was successful and provided me with the lines of code pictured above.\nLab 3: (code seen on GitHub)\nLab 3 was a fun chance to play around with stylizing options, specifically themes and icons. I used online resources to help me with these steps and to determine what I wanted my dashboard to look like. Below are two resources I used:\nIcons used in quick cards Theming\nThis website: (code seen on GitHub)\n\nwebsite:\n    title: \"Lily Cook\"\n    navbar:\n     left:\n      - href: index.qmd\n        text: Home\n      - href: about.qmd\n        text: About\n      - href: BlogPosts.qmd \n        text: Blog\n     right:\n      - icon: github\n        href:  https://github.com/lilypcook/lab-3\n        aria-label: GitHub\n      - icon: linkedin\n        href: https://www.linkedin.com/in/lilypaintoncook/\n        aria-label: LinkedIn\n    favicon: \"media/flower-icon.jpg\"\n\nWhen working on this website, I found that there was no icon on the browser tab when, and I did not like that, so I turned to the internet to help, and it was successful. This post on Stack Overflow pointed me in the right direction."
   },
   {
     "objectID": "posts/gradereflection/index.html#il-1-adding-new-skills",
     "href": "posts/gradereflection/index.html#il-1-adding-new-skills",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "",
     "text": "I can find and adopt new packages to accomplish tasks.\nI can adapt to different syntax styles (tidy, base, formula style, data.table).\n\n\n\n\n\n\nLab 2: leaflet\n\nmappal &lt;- colorNumeric('RdPu', domain = mergedmap$pctgroup)\nlabelpal &lt;- colorFactor('RdPu', domain = mergedmap$grouplabel)\n\nleaflet(mergedmap) %&gt;%\n  addTiles() %&gt;%\n  addPolygons(\n    fillColor = ~ mappal(pctgroup),\n    weight = 1, fillOpacity = 0.7,\n    color = \"lightgray\",\n    label = ~ paste(name_long, \":\", percentlabel)) %&gt;%\n  addLegend(\n    pal = labelpal, values = ~ grouplabel,  \n    title = \"People who say their children have been vaccinated\"\n  )\n\nIn lab 2, I was introduced to the leaflet package for the first time. I was able to create an interactive map filled by colors using functions from the package colorNumeric and colorFactor. I demonstrated a solid understanding of creating maps, labelling them, and creating interactive features.\nLab 4: (code seen on GitHub)\n\ncheckboxGroupInput(\"selected_regions\", \"Select Regions:\",\n                   choices = unique(percents$region),\n                   selected = unique(percents$region))\n\ncheckboxInput(\"show_median\", \"Show Region Medians\", value = TRUE)\n\n\n output$avgcard &lt;- renderText({\n  filtered_data &lt;- percents %&gt;%\n    filter(region %in% input$selected_regions)\n  \n  mean &lt;- mean(filtered_data$pctagree)\n  \n  paste(round(mean * 100, 2), \"%\")\n})\n\nIn lab 4, I was experience using Shiny for the first time. This was a completely new way of interacting with R for me, and I enjoyed being able to create apps. I feel I succeeded in learning this skill in a timely manner and implementing Shiny in a meaningful way."
   },
   {
     "objectID": "posts/gradereflection/index.html#il-2-online-resources",
     "href": "posts/gradereflection/index.html#il-2-online-resources",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "",
     "text": "I can use online resources (e.g., Google, ChatGPT, StackOverflow, YouTube) to solve problems, debug, or find new tools.\nI can use tutorials, etc. to enhance my understanding of new concepts.\nI can find source code for similar projects to use as starting points for my own.\n\n\n\n\n\n\nLab 2:\n\nleaflet(mergedmap) %&gt;%\n .... %&gt;%\n  addLegend(\n    pal = labelpal, values = ~ grouplabel,  \n    title = \"People who say their children have been vaccinated\"\n  )\n\nLab 2 presented an issue with properly labeling the leaflet map. Since this was a new package for me, troubleshooting was difficult. So, I turned to ChatGPT to help fix the addLegend function, specifically the pal and values arguments. ChatGPT was successful and provided me with the lines of code pictured above.\nLab 3: (code seen on GitHub)\nLab 3 was a fun chance to play around with stylizing options, specifically themes and icons. I used online resources to help me with these steps and to determine what I wanted my dashboard to look like. Below are two resources I used:\nIcons used in quick cards Theming\nThis website: (code seen on GitHub)\n\nwebsite:\n    title: \"Lily Cook\"\n    navbar:\n     left:\n      - href: index.qmd\n        text: Home\n      - href: about.qmd\n        text: About\n      - href: BlogPosts.qmd \n        text: Blog\n     right:\n      - icon: github\n        href:  https://github.com/lilypcook/lab-3\n        aria-label: GitHub\n      - icon: linkedin\n        href: https://www.linkedin.com/in/lilypaintoncook/\n        aria-label: LinkedIn\n    favicon: \"media/flower-icon.jpg\"\n\nWhen working on this website, I found that there was no icon on the browser tab when, and I did not like that, so I turned to the internet to help, and it was successful. This post on Stack Overflow pointed me in the right direction."
   },
   {
     "objectID": "posts/gradereflection/index.html#rw-1-file-code-and-data-management",
     "href": "posts/gradereflection/index.html#rw-1-file-code-and-data-management",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[RW-1] File, code, and data management:",
     "text": "[RW-1] File, code, and data management:\n\nI can use Git and GitHub to track my progress (creating repos, cloning, forking, pull requesting).\nI always use R Projects and the {here} package to organize my scripts, notebooks, data, and applications.\nI always use pull requests when collaborating with others.\n\n\nLevel: 3\n\n\nJustification:\nThis is surprisingly the first class I was required to use Git and GitHub for. I have done a good job learning and implementing Github, especially creating repositories. My repositories are here. I am able to commit and push in both RStudio and the terminal. I think the biggest justification of my GitHub skills is that this website is created and hosted with GitHub. I have been able to implement GitHub for other projects, including my thesis. Coming from 0 GitHub experience to having a somewhat complex website hosted with is a testament to me meeting this learning goal."
   },
   {
     "objectID": "posts/gradereflection/index.html#rw-2-notebooks",
     "href": "posts/gradereflection/index.html#rw-2-notebooks",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[RW-2] Notebooks:",
     "text": "[RW-2] Notebooks:\n\nI can use Quarto to produce a reproducible notebook and polished rendered documents\nI can use appropriate chunk options (echo, error, cache, etc.) to render my Quarto document quickly and cleanly.\n\n\nLevel: 3\n\n\nJustification:\nLab 1: Stylizing document\n\nMake this text bold.\nMake this text italicized.\nMake these into a bullet point list:\n\n\nApples\nBananas\nPotatoes\n\nIn Lab 1, I demonstrated the ability to stylize Quarto documents, including text as seen above. Additionally, in this Lab I demonstrated my ability to utilize code chunk options, including #| eval: false, #| echo: false and #| layout-nrow: 1\nLab 3: (code seen on GitHub): Chunk options for creating dashboard\n\n---\ntitle: \"Lab 3 Dashboard - Lily Cook\"\nformat: \n  dashboard: \n    theme: minty\n    orientation: columns\n    nav-buttons: \n     - icon: github\n       href:  https://github.com/lilypcook/lab-3\n       aria-label: GitHub\n     - icon: linkedin\n       href: https://www.linkedin.com/in/lilypaintoncook/\n       aria-label: LinkedIn\nlogo: worldlogo.png\n---\n\nIn Lab 3, I was able to use YAML options, seen above, to turn my document into a Quarto dashboard. In this document, I was able to use various HTML commands to set formatting including {.tabset} and {.width = 80%} Additionally, I set these code chunks so they would not render in this document. Overall, I have shown the ability to appropriately format multiple documents using Quarto and HTML languages."
   },
   {
     "objectID": "posts/gradereflection/index.html#rw-3-code-style",
     "href": "posts/gradereflection/index.html#rw-3-code-style",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[RW-3] Code style",
     "text": "[RW-3] Code style\n\nMy code is clear, readable, well-organized, and well-commented.\n\n\nLevel: 2\n\n\nJustification\nLab 3: (code seen on GitHub)\n\ndata.full &lt;- data.full %&gt;% \n  mutate(region = case_when(\n    Regions_Report %in% c(1, 2, 4, 5) ~ \"Sub-Saharan Africa\",\n    Regions_Report %in% c(6, 7, 8) ~ \"Americas\",\n    Regions_Report %in% c(9, 10, 11, 12, 18) ~ \"Asia\",\n    Regions_Report %in% c(3, 13) ~ \"Middle East and North Africa\",\n    Regions_Report %in% c(15, 16, 17, 0) ~ \"Europe\",\n    Regions_Report %in% c(14) ~ \"Former Soviet Union\"\n  ))\n\n\nvaccinepct &lt;- data.full %&gt;% \n  select(country, Q28) %&gt;% \n  drop_na() %&gt;% \n  group_by(country) %&gt;% \n  summarise(tot = n(), \n            totyes = sum(Q28 == 1), \n            pctyes = totyes/tot) %&gt;%\n  mutate(pctgroup = case_when(\n    pctyes &lt; 0.7 ~ 1,\n    pctyes &gt;= 0.7 & pctyes &lt; 0.8 ~ 2,\n    pctyes &gt;= 0.8 & pctyes &lt; 0.9 ~ 3,\n    pctyes &gt;= 0.9 & pctyes &lt; 0.95 ~ 4,\n    pctyes &gt;= 0.95 ~ 5\n  ))\n\nThis snippet of code from Lab 3 demonstrated my coding style. I use clean style, with the package dplyr to clean the data. I name the variables I create logical and informative names, to ensure that they will be easy to find when needed. I also make sure to name all chunks in labs. The use of %in% shows an improvement in style from the beginning of the quarter. Where I can improve to reach virtuoso status is adding more comments to the code for added reproducibility."
   },
   {
     "objectID": "posts/gradereflection/index.html#rw-summary",
     "href": "posts/gradereflection/index.html#rw-summary",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "RW Summary",
     "text": "RW Summary"
   },
   {
     "objectID": "posts/gradereflection/index.html#tc-1-project-summaries",
     "href": "posts/gradereflection/index.html#tc-1-project-summaries",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[TC-1] Project summaries:",
     "text": "[TC-1] Project summaries:\n\nI can create clear and succinct summaries of a project.\nI accurately interpret statistical or modeling results.\nI consider the appropriate scope and impact of my project results.\n\n\nLevel: 3\n\n\nJustification:\nLab 4: (code seen on GitHub)\n\n#| content: valuebox\n#| title: Average Country-Wide Belief in Safety of Vaccines\n#| color: info\n#| icon: globe\n\nlist(value = paste(round(avgpercent * 100,2), \"%\"))\n\nIn Labs 3 and 4, I created succinct visualizations and value boxes that provided quick and clear summaries of the Wellcome analysis. Above is an example chunk of a value box I created in lab 4, but looking at the dashboards themselves provide better evidence. The dashboards provide a good overview of the analysis done in digestible chunks for non-statistically minded people. I sent this dashboard to my mom (who is a immunization nurse) and she was able to understand all visualizations.\nWe have mostly only done the first point of this learning objective in class, so I don’t have evidence for the second bullet points."
   },
   {
     "objectID": "posts/gradereflection/index.html#tc-2-documentation",
     "href": "posts/gradereflection/index.html#tc-2-documentation",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[TC-2] Documentation:",
     "text": "[TC-2] Documentation:\n\nI can create a user-friendly dashboard.\nI provide ample documentation for my custom functions.\n\n\nLevel: 3\n\n\nJustification:\nLab 3: (code seen on GitHub): Labeling of dashboard documents and overall layout\n\n---\ntitle: \"Lab 3 Dashboard - Lily Cook\"\nformat: \n  dashboard: \n    theme: minty\n    orientation: columns\n    nav-buttons: \n     - icon: github\n       href:  https://github.com/lilypcook/lab-3\n       aria-label: GitHub\n     - icon: linkedin\n       href: https://www.linkedin.com/in/lilypaintoncook/\n       aria-label: LinkedIn\nlogo: worldlogo.png\n---\n\nIn Lab 3, I created my first dashboard from scratch. The above chunk shows the YAML for the layout used. This layout ensured a straightforward user experience. Additionally, I utilized tabset and page options, to avoid too much information on one page. I also appropriate organization and labels for these plots to ensure a good user experience on the dashboard.\nLab 4: (code seen on GitHub): Clear user inputs\n\ncheckboxGroupInput(\"selected_regions\", \"Select Regions:\",\n                   choices = unique(percents$region),\n                   selected = unique(percents$region))\n\ncheckboxInput(\"show_median\", \"Show Region Medians\", value = TRUE)\n\nLab 4 had a similar dashboard to Lab 3. I had similar successes in Lab 4 as with Lab 3. To extend this in Lab 4, I used user-friendly user inputs, so it was clear what was needed from the user to interact with the dashboard. Again, I sent this dashboard to my parents, and it was clear for them to interact with, they had no questions."
   },
   {
     "objectID": "posts/gradereflection/index.html#tc-summary",
     "href": "posts/gradereflection/index.html#tc-summary",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "TC Summary",
     "text": "TC Summary"
   },
   {
     "objectID": "posts/gradereflection/index.html#dm-1-data-preparation",
     "href": "posts/gradereflection/index.html#dm-1-data-preparation",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[DM-1] Data Preparation",
     "text": "[DM-1] Data Preparation\n\nI can read in datasets to R, including untidy ones.\nI can clean datasets to deal with missing data, typos, poor formatting, etc.\n\n\nLevel: 2\n\n\nJustification:\nLab 2:\n\nlibrary(tidyverse)\nlibrary(readxl)\n\ndata.summary &lt;- read_xlsx(\"wgm2018-dataset-crosstabs-all-countries.xlsx\", sheet = 1)\ndata.full &lt;- read_xlsx(\"wgm2018-dataset-crosstabs-all-countries.xlsx\", sheet = 2)\ndata.dictionary &lt;- read_xlsx(\"wgm2018-dataset-crosstabs-all-countries.xlsx\", sheet = 3)\n\ncountry.names &lt;- '1=United States, 2=Egypt, 3=Morocco, 4=Lebanon, 5=Saudi Arabia, 6=Jordan, 8=Turkey, 9=Pakistan, 10=Indonesia, 11=Bangladesh, 12=United Kingdom, 13=France, 14=Germany, 15=Netherlands, 16=Belgium, 17=Spain, 18=Italy, 19=Poland, 20=Hungary, 21=Czech Republic, 22=Romania, 23=Sweden, 24=Greece, 25=Denmark, 26=Iran, 28=Singapore, 29=Japan, 30=China, 31=India, 32=Venezuela, 33=Brazil, 34=Mexico, 35=Nigeria, 36=Kenya, 37=Tanzania, 38=Israel, 39=Palestinian Territories, 40=Ghana, 41=Uganda, 42=Benin, 43=Madagascar, 44=Malawi, 45=South Africa, 46=Canada, 47=Australia, 48=Philippines, 49=Sri Lanka, 50=Vietnam, 51=Thailand, 52=Cambodia, 53=Laos, 54=Myanmar, 55=New Zealand, 57=Botswana, 60=Ethiopia, 61=Mali, 62=Mauritania, 63=Mozambique, 64=Niger, 65=Rwanda, 66=Senegal, 67=Zambia, 68=South Korea, 69=Taiwan, 70=Afghanistan, 71=Belarus, 72=Georgia, 73=Kazakhstan, 74=Kyrgyzstan, 75=Moldova, 76=Russia, 77=Ukraine, 78=Burkina Faso, 79=Cameroon, 80=Sierra Leone, 81=Zimbabwe, 82=Costa Rica, 83=Albania, 84=Algeria, 87=Argentina, 88=Armenia, 89=Austria, 90=Azerbaijan, 96=Bolivia, 97=Bosnia and Herzegovina, 99=Bulgaria, 100=Burundi, 103=Chad, 104=Chile, 105=Colombia, 106=Comoros, 108=Republic of Congo, 109=Croatia, 111=Cyprus, 114=Dominican Republic, 115=Ecuador, 116=El Salvador, 119=Estonia, 121=Finland, 122=Gabon, 124=Guatemala, 125=Guinea, 128=Haiti, 129=Honduras, 130=Iceland, 131=Iraq, 132=Ireland, 134=Ivory Coast, 137=Kuwait, 138=Latvia, 140=Liberia, 141=Libya, 143=Lithuania, 144=Luxembourg, 145=Macedonia, 146=Malaysia, 148=Malta, 150=Mauritius, 153=Mongolia, 154=Montenegro, 155=Namibia, 157=Nepal, 158=Nicaragua, 160=Norway, 163=Panama, 164=Paraguay, 165=Peru, 166=Portugal, 173=Serbia, 175=Slovakia, 176=Slovenia, 183=Eswatini, 184=Switzerland, 185=Tajikistan, 186=The Gambia, 187=Togo, 190=Tunisia, 191=Turkmenistan, 193=United Arab Emirates, 194=Uruguay, 195=Uzbekistan, 197=Yemen, 198=Kosovo, 202=Northern Cyprus' \n\ncountry.names &lt;- strsplit(country.names, split = \",\")\ncountry.names &lt;- country.names[[1]]\ncountry.names &lt;- as_tibble(country.names)\ncountry.names &lt;- separate_wider_delim(country.names, \n                                      delim = \"=\",\n                                      cols = c(\"value\"), \n                                      names = c(\"WP5\", \"country\"))\n\ncountry.names &lt;- country.names %&gt;% mutate(WP5 = as.numeric(WP5))\ndata.full &lt;- merge(data.full, country.names, by = \"WP5\")\n\nregion.names &lt;- \"0=Not assigned, 1=Eastern Africa,2=Central Africa,3=North Africa,4=Southern Africa,5=Western Africa,6=Central America and Mexico,7=Northern America,8=South America,9=Central Asia,10=East Asia,11=Southeast Asia,12=South Asia,13=Middle East,14=Eastern Europe,15=Northern Europe,16=Southern Europe,17=Western Europe,18=Aus/NZ\"\n\nregion.names &lt;- strsplit(region.names, split = \",\")\nregion.names &lt;- region.names[[1]]\nregion.names &lt;- as_tibble(region.names)\nregion.names &lt;- separate_wider_delim(region.names, \n                                     delim = \"=\", \n                                     cols = c(\"value\"), \n                                     names = c(\"Regions_Report\", \"Region_Name\"))\n\nregion.names &lt;- region.names %&gt;% mutate(Regions_Report = as.numeric(Regions_Report))\n\ndata.full &lt;- merge(data.full, region.names, by = \"Regions_Report\")\n\ndata.full &lt;- data.full %&gt;% \n  mutate(region = case_when(\n    Regions_Report %in% c(1, 2, 4, 5) ~ \"Sub-Saharan Africa\",\n    Regions_Report %in% c(6, 7, 8) ~ \"Americas\",\n    Regions_Report %in% c(9, 10, 11, 12, 18) ~ \"Asia\",\n    Regions_Report %in% c(3, 13) ~ \"Middle East and North Africa\",\n    Regions_Report %in% c(15, 16, 17, 0) ~ \"Europe\",\n    Regions_Report %in% c(14) ~ \"Former Soviet Union\"\n  ))\n\nLab 2 had a very messy data to read in. It was an Excel file with three different sheets, with less than ideal data. This demonstrated my ability to use multiple types of data, not just csv files. I was able to utilize dplyr and other packages to successfully clean data. Working with string data is complicated, and I was able use multiple tools like strsplit() and separate_wider_delim() to work with them. However, I do have room for improvement. The long strings pulled out were entries in the data dictionary and I used the merge() function, rather than the cleaner join() options.\nLab 4: (code seen on GitHub)\n\ndata.full &lt;- read_csv(\"datafull.csv\")\n\nIn Lab 4, the same dataset was used. I utilized data pre-processing and saved the data with write.csv() so I did not need to process this data everytime this app was rendered, which was necessary for publishing on Shiny. Above is how I was able to read in the csv using readr package."
   },
   {
     "objectID": "posts/gradereflection/index.html#dm-2-data-wrangling",
     "href": "posts/gradereflection/index.html#dm-2-data-wrangling",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[DM-2] Data Wrangling",
     "text": "[DM-2] Data Wrangling\n\nI can cleverly use pivoting, separating, grouping, and joining to wrangle data.\nI can use mapping (purrr) to perform repeated tasks.\n\n\nLevel: 3\n\n\nJustification:\nLab 3: (code seen on GitHub)\n\nmapdata &lt;-  ne_countries(scale = \"medium\", returnclass = \"sf\")\n\nvaccinepct &lt;- vaccinepct %&gt;%\n  mutate(country = case_when(\n    country == \"Eswatini\" ~ \"Kingdom of eSwatini\",\n    country == \"Ivory Coast\" ~ \"Côte d'Ivoire\",\n    country == \"Laos\" ~ \"Lao PDR\",\n    country == \"Macedonia\" ~ \"North Macedonia\",\n    country == \"Palestinian Territories\" ~ \"Palestine\",\n    country == \"Republic of Congo\" ~ \"Republic of the Congo\",\n    country == \"Russia\" ~ \"Russian Federation\",\n    country == \"South Korea\" ~ \"Republic of Korea\",\n    TRUE ~ country), \n    name_long = country)\n\n#vaccinepct[which(!(vaccinepct$name_long %in% mapdata$name_long)), 1]\n\nmergedmap &lt;- left_join(mapdata, vaccinepct, by = \"name_long\")\n\nmergedmap &lt;- mergedmap %&gt;%\n  mutate(pctgroup = case_when(\n    pctyes &lt; 0.7 ~ 1,\n    pctyes &gt;= 0.7 & pctyes &lt; 0.8 ~ 2,\n    pctyes &gt;= 0.8 & pctyes &lt; 0.9 ~ 3,\n    pctyes &gt;= 0.9 & pctyes &lt; 0.95 ~ 4,\n    pctyes &gt;= 0.95 ~ 5,\n    is.na(pctyes) ~ 0),\n    percentlabel = round(pctyes * 100, 2),\n    percentlabel = ifelse(is.na(percentlabel), \"Not surveyed\", paste(percentlabel,\"%\")),\n    grouplabel = case_when(\n      pctgroup == 0 ~ \"Not surveyed\",\n      pctgroup == 1 ~ \"Less than 70%\",\n      pctgroup == 2 ~ \"70% to 79%\",\n      pctgroup == 3 ~ \"80% to 89%\",\n      pctgroup == 4 ~ \"90% to 94%\",\n      pctgroup == 5 ~ \"95% and above\"\n    ), \n    grouplabel = fct_reorder(grouplabel, pctgroup))\n\nIn labs 2 and 3, to create a leaflet map, I had to use map data that came from a JSON file from the rnaturalearth package. This demonstates my ability to wrangle data, as I was able to indentify differences in two files using which() and merge the files (this time using more appropriate left_join). This code chunk also demonstrates my ability to create new variables for analysis using case_when and ifelse(). Again, I demonstrate my familiarity with dplyr functions to group, separate, and reorder data. I justify my virtuoso status here with my visible improvements from the code chunk in the previous learning objective."
   },
   {
     "objectID": "posts/gradereflection/index.html#dm-3-data-formats",
     "href": "posts/gradereflection/index.html#dm-3-data-formats",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[DM-3] Data Formats",
     "text": "[DM-3] Data Formats\n\nI can use API urls to access JSON data and convert it into a data frame\nI can scrape data from the web and convert it into a data frame\n\n\n## Fill in the line below with your self-assigned level for this objective.\nmy_level &lt;- 1\n\nportfolio_levels &lt;- portfolio_levels %&gt;%\n  bind_rows(tibble(Objective = \"DM-3\", \n                   Level = my_level))\n\n\nLevel: 1\n\n\nJustification\nHave not completed relevant tasks yet"
   },
   {
     "objectID": "posts/gradereflection/index.html#dm-summary",
     "href": "posts/gradereflection/index.html#dm-summary",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "DM Summary",
     "text": "DM Summary"
   },
   {
     "objectID": "posts/gradereflection/index.html#pv-1-clear-accessible-visualizations",
     "href": "posts/gradereflection/index.html#pv-1-clear-accessible-visualizations",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[PV-1] Clear & Accessible Visualizations",
     "text": "[PV-1] Clear & Accessible Visualizations\n\nI can make my plots more clear by removing the legend and adding annotations.\nI can edit the titles, subtitles, captions, axis labels, etc. to create a clearly labelled plot.\nI can choose colors (“scales”) and themes to make a visually pleasing and accessible plot.\n\n\nLevel: 3\n\n\nJustification:\nLab 2: improvements of visualizations\n\npercents &lt;- data.full %&gt;% select(country, region, Q25) %&gt;% \n  drop_na() %&gt;%\n  mutate(agree = ifelse(Q25 &lt; 3, 1, 0)) %&gt;% \n  group_by(country, region) %&gt;%\n  summarise(totagree = sum(agree), \n            tot = n(), \n            pctagree = totagree/tot)\n\nmedians &lt;- percents %&gt;%\n  group_by(region)%&gt;%\n  summarise(medregion = median(pctagree))\n\n\n\npercents %&gt;%\n    ggplot() +\n    geom_vline(data = medians, aes(xintercept = medregion), color = \"black\")+\n    geom_dotplot(aes(x = pctagree, fill = region), \n                 method = \"histodot\", \n                 dotsize = 0.6, \n                 binwidth = 0.01) +\n    facet_wrap(~region, ncol = 1)+\n    geom_text(aes(x = 0.3, y = 0.5, label = region, color = region), \n              hjust = \"inward\", \n              size =5, \n              family = \"Times\",\n              fontface = \"bold\")+\n    scale_fill_brewer(palette = \"Set2\") +\n    scale_color_brewer(palette = \"Set2\")+\n    theme_minimal() +\n    theme(legend.position = \"none\",\n      panel.grid.major.y = element_blank(),\n      panel.grid.minor.y = element_blank(),\n      axis.text.y = element_blank(),\n      strip.text = element_blank(),\n      text= element_text(family = \"Times\"),\n      plot.title = element_text(face = \"bold\")) +\n      scale_x_continuous(labels = scales::percent_format(accuracy = 1))+\n      labs(title = \"Percent of people who believe vaccines are safe by country and global region\", subtitle = \"Black lines represent region median\", \n           x = \"\", y = \"\")\n\nLab 2 focused on improving visualizations. Above is the code for the dotplot. I removed the legend and messy labels, insted replacing these with test over the relevant facets. This uses a color-blind friendly brewer palette (Set2), and text and data points are color coded. I have a clear title and an informative sub-title. I have minimal gridlines and a single x-axis to avoid unnecessary distraction. Overall, I follow the grammer of graphic guidelines outline in the Ted Talk we watched at the beginning of the quarter."
   },
   {
     "objectID": "posts/gradereflection/index.html#pv-2-dynamic-visualizations",
     "href": "posts/gradereflection/index.html#pv-2-dynamic-visualizations",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[PV-2] Dynamic Visualizations",
     "text": "[PV-2] Dynamic Visualizations\n\nI can use a package like {gganimate} to create self-contained gifs.\nI can use a package like {plotly}, {ggplotly}, {leaflet}, {ggirafe}, etc. to make interactive html widgets.\n\n\nLevel: 2\n\n\nJustification:\nLab 2: leaflet\n\nmappal &lt;- colorNumeric('RdPu', domain = mergedmap$pctgroup)\nlabelpal &lt;- colorFactor('RdPu', domain = mergedmap$grouplabel)\n\nleaflet(mergedmap) %&gt;%\n  addTiles() %&gt;%\n  addPolygons(\n    fillColor = ~ mappal(pctgroup),\n    weight = 1, fillOpacity = 0.7,\n    color = \"lightgray\",\n    label = ~ paste(name_long, \":\", percentlabel)) %&gt;%\n  addLegend(\n    pal = labelpal, values = ~ grouplabel,  \n    title = \"People who say their children have been vaccinated\"\n  )\n\nIn Lab 2, I created an interactive leaflet, including labels that appear when hovering over a country. This map was clear and well labeled, and a good representation of my dynamic plot skills. I gave myself a proficient as I have not utilized as many packages to develop interactive visualizations as I would like."
   },
   {
     "objectID": "posts/gradereflection/index.html#pv-3-interactive-visualizations",
     "href": "posts/gradereflection/index.html#pv-3-interactive-visualizations",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[PV-3] Interactive Visualizations",
     "text": "[PV-3] Interactive Visualizations\n\nI can use Shiny or webR to create visualizations that react to a user’s input.\n\n\nLevel: 3\n\n\nJustification:\nLab 4: (code seen on GitHub) Shiny Interactivity\n\nsliderInput(\"percent_filter\", \n             label = \"Minimum Vaccination Rate (%)\", \n             min = 0, \n             max = 100, \n             value = 50, \n             step = 1)\n\n\ncheckboxGroupInput(\"selected_regions2\", \"Select Regions:\",\n                   choices = unique(percents$region),\n                   selected = unique(percents$region))\n\nIn Lab 4, I utilized Shiny to create an interactive visualization, value box and table. Above is the code used to create user inputs for the table, including a slider and check boxes. The interactive table responded to two types of user input, demonstrating my ability in interactive visualizations. The interactive dot plot in this dashboard also responded to multiple inputs. Though this table could use improvement in organization, the interactivity of it is well done."
   },
   {
     "objectID": "posts/gradereflection/index.html#pv-summary",
     "href": "posts/gradereflection/index.html#pv-summary",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "PV Summary",
     "text": "PV Summary"
   },
   {
     "objectID": "posts/gradereflection/index.html#cdai-1-r-programming-language",
     "href": "posts/gradereflection/index.html#cdai-1-r-programming-language",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[CDAI-1] R Programming Language",
     "text": "[CDAI-1] R Programming Language\n\nI understand non-standard evaluation (aka “tidy eval” or “unquoted objects”), and I can use tunneling in my functions.\nI understand functional programming, and I can use functions as objects in my code design.\n\n\nLevel: 1\n\n\nJustification:\nHave not completed relevant tasks yet"
   },
   {
     "objectID": "posts/gradereflection/index.html#cdai-2-object-handling",
     "href": "posts/gradereflection/index.html#cdai-2-object-handling",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[CDAI-2] Object Handling",
     "text": "[CDAI-2] Object Handling\n\nI have built in checks for possible input problems\nI can make reasonable choices in my code design about when to save intermediate objects.\nI can convert objects between types and structures as needed.\n\n\nLevel: 1\n\n\nJustification:\nHave not completed relevant tasks yet"
   },
   {
     "objectID": "posts/gradereflection/index.html#cdai-3-speed-and-efficiency",
     "href": "posts/gradereflection/index.html#cdai-3-speed-and-efficiency",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[CDAI-3] Speed and Efficiency",
     "text": "[CDAI-3] Speed and Efficiency\n\nI can recognize moments of possible slowdown in my code, and use built-in functions or parallelizing to speed them up.\nI always use and design vectorized functions whenever possible.\n\n\nLevel: 1\n\n\nJustification:\nHave not completed relevant tasks yet"
   },
   {
     "objectID": "posts/gradereflection/index.html#cdai-4-supporting-functions",
     "href": "posts/gradereflection/index.html#cdai-4-supporting-functions",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[CDAI-4] Supporting Functions",
     "text": "[CDAI-4] Supporting Functions\n\nI write helper / shortcut functions to streamline repeated tasks and make my code easier to read.\nI use intermediate functions to streamline repeated or looping processes.\n\n\nLevel: 1\n\n\nJustification:\nHave not completed relevant tasks yet"
   },
   {
     "objectID": "posts/gradereflection/index.html#cdai-5-algorithmic-process",
     "href": "posts/gradereflection/index.html#cdai-5-algorithmic-process",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[CDAI-5] Algorithmic Process",
     "text": "[CDAI-5] Algorithmic Process\n\nI can invent and implement my own iterative algorithm.\nMy loops are clean and efficient.\nI have built in checks for possible problems or extreme cases in the algorithm.\n\n\nLevel: 1\n\n\nJustification:\nHave not completed relevant tasks yet"
   },
   {
     "objectID": "posts/gradereflection/index.html#cdai-6-generative-art",
     "href": "posts/gradereflection/index.html#cdai-6-generative-art",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "[CDAI-6] Generative Art",
     "text": "[CDAI-6] Generative Art\n\nI can apply a variety of generative art functions to make a visually pleasing piece.\nI can explain why particular changes to the code result in particular differences in the visualization.\n\n\nLevel: 1\n\n\nJustification:\nHave not completed relevant tasks yet"
   },
   {
     "objectID": "posts/gradereflection/index.html#cdai-summary",
     "href": "posts/gradereflection/index.html#cdai-summary",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "CDAI Summary",
     "text": "CDAI Summary"
   },
   {
     "objectID": "posts/gradereflection/index.html#grade",
     "href": "posts/gradereflection/index.html#grade",
-    "title": "Grade Reflection",
+    "title": "Final Grade Reflection",
     "section": "Grade",
     "text": "Grade\nBased on the summary plot above, I believe I have earned a B+ in STAT 541 (so far).\n\nJustification\nOther than learning objectives not yet covered in class, I feel I am at least proficient in all learning objectives, and have been able to use many of the skills used outside of this course, especially in my thesis. I feel that I have learned a lot in this course and can explain all code. I have displayed much improvement in coding style and ability since the beginning of this course. More importantly, I have found many of these assignments to be fun, which is a huge attitude shift towards R for me.\nBelow is a summary of my self-scored learning outcomes that we have completed in class so far:\n[RW-1] File, Code, and Data Management: Virtuoso\n[RW-2] Notebooks: Virtuoso\n[RW-3] Code Style: Proficient\n[DM-1] Data Preparation: Proficient\n[DM-2] Data Wrangling: Virtuoso\n[PV-1] Clear & Accessible Visualizations: Virtuoso\n[PV-2] Dynamic Visualizations: Proficient\n[PV-3] Interactive Visualizations: Virtuoso\n[IL-1] Adding New Skills: Proficient\n[IL-2] Online Resources: Virtuoso\n[TC-1] Project Summaries: Virtuoso\n[TC-2] Documentation: Virtuoso\nFor all virtuoso scores, I feel I have well justified my scores. For my proficient scores, I have also justified them and included steps for improvement of these learning outcomes.\nI hope to end this course with an A, but I do not think I am there yet. I would like to improve comments in the code and use better functions (such as not using merge()). I also hope to hear what you would like to see me improve on to meet this goal.\nI will write a more in-depth justification for the final portfolio, I am just a bit strapped on time this week."
   },

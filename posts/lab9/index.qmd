@@ -1,0 +1,239 @@
+---
+title: "Lab 9"
+description: "Generative Art"
+author:
+  - name: Lily Cook
+date: 06-02-2025
+categories: [Advanced R] 
+#image: ../../media/argyle.jpg
+draft: false 
+execute: 
+  echo: true
+  warning: false
+format: html
+embed-resources: true
+editor: source
+---
+
+
+```{r}
+#| label: libraries
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(tibble)
+library(ggforce)
+library(deldir)
+library(ggthemes)
+library(tictoc)
+library(ambient)
+library(purrr)
+library(tidyr)
+library(stringr)
+library(sf)
+
+```
+
+## Midnight Stargazing
+
+```{r}
+#| label: piece 1
+
+# generating random variables using various distributions
+w <- rpois(300, 70)
+x <- rgamma(300, 3)
+y <- rnorm(300, 50, 200)
+z <- rbinom(300, 200, 0.7)
+a <- sample(c('a', 'b', 'c'), replace = T, size = 300)
+
+data <- cbind(w, x, y, z, a) # combining into df
+
+
+# create gradient color pallete
+pal <- colorRampPalette(c("lightgoldenrod1","azure3", "slateblue"))
+
+art_colors <- pal(n_distinct(w))
+
+#plot
+
+ggplot(data, aes(x = y, y = z)) +
+  geom_point(aes(shape = a, color = w), show.legend = F, alpha = 0.9) + #add points
+  geom_line(aes(group = w, color = w), linetype = 3, show.legend = F, alpha = 0.3)+ # connect points
+  scale_shape_manual(values = c("a" = 20, "b" = 8, "c" = 21)) + # change shapes of points
+  scale_color_manual(values = art_colors) + # change colors
+  coord_radial() + #circle
+  theme_void() + #remove everything
+  theme(panel.background = element_rect(fill = "midnightblue", color = "midnightblue")) # background color
+
+```
+
+#### Description
+
+Gazing at the midnight stars, your eyes drift between the celestial bodies. The stars seem to be randomly scattered across the sky.....
+
+#### Code choices
+
+By adding `coord_radial()`, the art piece now has a circular shape. Setting the background fill and color gives the same midnight blue color as the backdrop of the piece. Adjusting the alpha in the `geoms` adjusts the opacity of the shapes on the plot. `scale_color_manual` allows me to choose a palette and `scale_shape_manual` allows me to choose the shapes the points will be. Lastly, using `theme_void` removes all titles, axis lines, etc. to give the appearance of art.
+
+## Central Coast Spring
+
+```{r}
+#| label: piece 2
+#| warning: false
+
+# defining palette that I want
+my_pal <- c("#4A5d23", "#708238", "#568203","#8A9A5B", "#6B8E23", "#A0522D", "#8B4513", "#7e481c", "goldenrod1")
+
+
+
+# function to randomly select row from danielle
+choose_rectangle <- function(blocks) {
+  sample(nrow(blocks), 1, prob = blocks$area)
+}
+
+# function to randomly set rectangle breaks from danielle
+choose_break <- function(lower, upper) {
+  round((upper - lower) * runif(1))
+}
+
+# function to create tibble of rectangles from danielle
+create_rectangles <- function(left, right, bottom, top, value) {
+  tibble(
+    left = left,
+    right = right,
+    bottom = bottom,
+    top = top,
+    width = right - left,
+    height = top - bottom,
+    area = width * height,
+    value = value
+  )
+}
+
+# danielle function to split rectangle horizontally
+split_rectangle_x <- function(rectangle, new_value) {
+  with(rectangle, {
+    split <- choose_break(left, right)
+    new_left  <- c(left, left + split)
+    new_right <- c(left + split, right)
+    new_value <- c(value, new_value)
+    create_rectangles(new_left, new_right, bottom, top, new_value)
+  })
+}
+
+# danielle function to split rectangle vertically
+split_rectangle_y <- function(rectangle, new_value) {
+  with(rectangle, {
+    split <- choose_break(bottom, top)
+    new_bottom <- c(bottom, bottom + split)
+    new_top <- c(bottom + split, top)
+    new_value <- c(value, new_value)
+    create_rectangles(left, right, new_bottom, new_top, new_value)
+  })
+}
+
+# danielle function combining the two split functions
+
+split_rectangle <- function(rectangle, value) {
+  if(runif(1) < .5) {
+    return(split_rectangle_x(rectangle, value))
+  }
+  split_rectangle_y(rectangle, value)
+}
+
+# danielle function to randomly split rectangle
+split_block <- function(blocks, value) {
+  old <- choose_rectangle(blocks) 
+  new <- split_rectangle(blocks[old, ], value)
+  bind_rows(blocks[-old, ], new)
+}
+
+
+# danielle function to repeatedly divide rectangles
+
+subdivision <- function(ncol = 1000, 
+                        nrow = 1000, 
+                        nsplits = 50, 
+                        seed = NULL) {
+  
+  if(!is.null(seed)) set.seed(seed)
+  blocks <- create_rectangles(
+    left = 1, 
+    right = ncol, 
+    bottom = 1, 
+    top = nrow, 
+    value = 0
+  )
+  reduce(1:nsplits, split_block, .init = blocks)
+}
+
+# danielle function to fracture/ fill square basicall the start of the mosaic
+fill_rectangle <- function(left, right, bottom, top, width, 
+                           height, area, value, nshades = 100) {
+  
+  set.seed(value)
+  fractals <- list(billow, fbm, ridged)
+  generators <- list(gen_simplex, gen_perlin, gen_worley)
+  
+  expand_grid(
+    x = left:right, 
+    y = bottom:top, 
+  ) |>
+    mutate(
+      fill = 10 * value + fracture(
+        x = x * sample(-3:3, 1),
+        y = y * sample(-3:3, 1),
+        noise = sample(generators, 1)[[1]],
+        fractal = sample(fractals, 1)[[1]],
+        octaves = sample(10, 1),
+        frequency = sample(10, 1) / 20,
+        value = "distance2"
+      ) |>
+        normalise(to = c(1, nshades)) |> 
+        round()
+    )
+}
+
+# danielle function to plot squares
+draw_mosaic <- function(dat, palette) {
+  background <- sample(palette[1:5], 1) #edited
+  dat |>
+    ggplot(aes(x, y, fill = fill)) +
+    geom_tile(show.legend = FALSE, colour = background, size = .2) +
+    scale_size_identity() +
+    scale_colour_gradientn(colours = palette) +
+    scale_fill_gradientn(colours = palette) +
+    scale_x_continuous(expand = expansion(add = 5)) +
+    scale_y_continuous(expand = expansion(add = 5)) +
+    coord_equal() +
+    theme_void() +
+    theme(plot.background = element_rect(fill = background)) 
+}
+
+
+# danielle function bringing it all together - edited palette
+mosaica <- function(ncol = 60, 
+                    nrow = 60, 
+                    nsplits = 30, 
+                    seed = NULL) {
+  
+  subdivision(ncol, nrow, nsplits, seed) |>
+    pmap_dfr(fill_rectangle) |> 
+    slice_sample(prop = .995) |>
+    filter(!is.na(fill)) |>
+    draw_mosaic(palette = my_pal) #added my palette here for more control
+}
+
+
+
+mosaica(ncol = 200, nrow = 150, nsplits = 3000, seed = 541)
+```
+
+#### Description
+
+Spring has arrived in the central coast of California. Green grass spreads across the hills dotted with yellow blooms.
+
+#### Code Choices
+
+I decided to choose my own palette instead of allowing for a random palette as the shapes reminded me of fields. This was also more fun for me. I also edited the `background` call in the `draw_mosaic` function to select a green from the palette rather than the browns or yellow. In the function call to `mosaica`, `ncol` is set to 200, meaning the art will be 200 "pixels" wide, and `nrow` is set to 150, meaning the art will be 150 "pixels" tall. The `nsplits` argument is set to 3000, meaning the art will be divided into 300 "rectangles", though the nature of the mosaic allows for the shapes to be non-rectangular (or at least not perfectly rectangular). This is a large number of splits and allows for more "detail" in the drawing

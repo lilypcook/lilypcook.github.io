@@ -1,16 +1,17 @@
 ---
-title: "Grade Reflection"
+title: "Final Grade Reflection"
 format: html
-description: "Midterm reflection, up to week 5"
+description: "Spring 2025"
 author:
   - name: Lily Cook
-date: 05-05-2025
+date: 06-08-2025
 categories: [Advanced R] 
 image: ../../media/stripes.jpg
 draft: false 
 execute: 
   echo: true
   warning: false
+  
 ---
 
 ```{r}
@@ -51,7 +52,7 @@ num_to_cat_levels <- function(x){
 # 2 = Proficient
 # 3 = Virtuoso
 
-my_level <- 2
+my_level <- 3
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
@@ -118,6 +119,33 @@ checkboxInput("show_median", "Show Region Medians", value = TRUE)
 
 In lab 4, I was experience using Shiny for the first time. This was a completely new way of interacting with R for me, and I enjoyed being able to create apps. I feel I succeeded in learning this skill in a timely manner and implementing Shiny in a meaningful way.
 
+[Lab 6](../lab6/index.qmd): enquos
+
+```{r}
+#| eval: false
+
+impute_missing <- function(df, ..., impute_fun = mean) {
+  selected_cols <- rlang::enquos(...)
+  
+  # warning message for no columns selected
+  if (length(selected_cols) == 0) {
+    warning("No columns specified for imputation, returning original dataframe")
+    return(df)
+  }
+  
+  # selecting df columns, !!! allows for unquoting (... is usable)
+  filtered_df <- df %>% dplyr::select(!!!selected_cols)
+  col_names <- names(filtered_df)
+  
+# ... 
+  # function continues in lab 
+```
+
+In lab 6, I wrote functions with enquos (!!!) for the first time. I was able to adjust to the new functions and syntax to create working functions.
+
+[Lab 7](../lab6/index.qmd): APIs
+
+In lab 7, I learned how to call to APIs using the `httr`, `tidyjson` and `jsonlite` packages. These were all new to me. I was able to successfully adapt to using json data files (with the help of my teammates) and pull data from these APIs using the `GET()` function and check the status of the request.
 
 
 ## \[IL-2\] Online resources:
@@ -248,6 +276,7 @@ portfolio_levels <- portfolio_levels %>%
 ### Justification:
 
 This is surprisingly the first class I was required to use Git and GitHub for. I have done a good job learning and implementing Github, especially creating repositories. My repositories are [here](https://github.com/lilypcook). I am able to commit and push in both RStudio and the terminal.
+Using GitHub, I was able to use pull requests and adjust workflow for issues that arose with pull requests in a fork rather than the original repo. Our group figured out how to merge our edits using the terminal in order to successfully collaborate on the same file.
 I think the biggest justification of my GitHub skills is that this website is created and hosted with GitHub. I have been able to implement GitHub for other projects, including my thesis. Coming from 0 GitHub experience to having a somewhat complex website hosted with is a testament to me meeting this learning goal.
 
 
@@ -321,7 +350,7 @@ In Lab 3, I was able to use YAML options, seen above, to turn my document into a
 #| include: false
 #| label: RW-3
 
-my_level <- 2
+my_level <- 3
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
@@ -368,9 +397,40 @@ vaccinepct <- data.full %>%
 
 ```
 
-This snippet of code from Lab 3  demonstrated my coding style. I use clean style, with the package `dplyr` to clean the data. I name the variables I create logical and informative names, to ensure that they will be easy to find when needed. I also make sure to name all chunks in labs. The use of `%in%` shows an improvement in style from the beginning of the quarter. Where I can improve to reach virtuoso status is adding more comments to the code for added reproducibility. 
+This snippet of code from Lab 3  demonstrated my coding style. I use clean style, with the package `dplyr` to clean the data. I name the variables I create logical and informative names, to ensure that they will be easy to find when needed. I also make sure to name all chunks in labs. The use of `%in%` shows an improvement in style from the beginning of the quarter.  
 
 
+[Lab 9](../lab9/index.qmd): example of improved commenting
+
+```{r}
+# generating random variables using various distributions
+w <- rpois(300, 70)
+x <- rgamma(300, 3)
+y <- rnorm(300, 50, 200)
+z <- rbinom(300, 200, 0.7)
+a <- sample(c('a', 'b', 'c'), replace = T, size = 300)
+
+data <- cbind(w, x, y, z, a) # combining into df
+
+
+# create gradient color palette
+pal <- colorRampPalette(c("lightgoldenrod1","azure3", "slateblue"))
+
+art_colors <- pal(n_distinct(w)) # select amount of colors needed for art
+
+#plot
+
+ggplot(data, aes(x = y, y = z)) +
+  geom_point(aes(shape = a, color = w), show.legend = F, alpha = 0.9) + #add points
+  geom_line(aes(group = w, color = w), linetype = 3, show.legend = F, alpha = 0.3)+ # connect points
+  scale_shape_manual(values = c("a" = 20, "b" = 8, "c" = 21)) + # change shapes of points
+  scale_color_manual(values = art_colors) + # change colors
+  coord_radial() + #circle
+  theme_void() + #remove everything
+  theme(panel.background = element_rect(fill = "midnightblue", color = "midnightblue")) # background color
+```
+
+At the midterm evaluation I said *"Where I can improve to reach virtuoso status is adding more comments to the code for added reproducibility."* The above example shows improved commenting in my lab work. This lab was individual, but what really helped me improve my commenting was working in teams for previous labs. Based on this improvement, I believe I have earned a virtuoso in this learning objective.
 
 ## RW Summary
 
@@ -694,7 +754,7 @@ In labs 2 and 3, to create a leaflet map, I had to use map data that came from a
 
 ```{r}
 ## Fill in the line below with your self-assigned level for this objective.
-my_level <- 1
+my_level <- 3
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(tibble(Objective = "DM-3", 
@@ -705,7 +765,76 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification
 
-Have not completed relevant tasks yet
+[Lab 7](../lab7/index.qmd): Use of APIs
+
+```{r}
+#| label: api-functions
+#| eval: false
+
+# function to get pass times for a single capital
+
+get_single_location_passes <- function(lat, long) {
+  api_base_url <- "https://api.g7vrd.co.uk/v1/satellite-passes/25544"
+  request_url <- paste0(api_base_url, "/", lat, "/", long, ".json")
+  
+  # get request
+  response <- GET(request_url)
+  
+  # check if the request successful, if success get content
+  if (status_code(response) == 200) {
+    content <- content(response, "text", encoding = "UTF-8")
+    pass_data <- fromJSON(content)
+    
+    # extract time 
+    if (length(pass_data$passes) > 0 && "tca" %in% names(pass_data$passes)) {
+      # get first 3 TCA timestamps
+      return(head(pass_data$passes$tca, 3))
+    } else {
+      return(NULL) # if no passes found or tca field missing
+    }
+  } else {
+    warning(paste("API request failed for lat:", lat, "long:", long, "with status:", status_code(response)))
+    return(NULL) # if request failed
+  }
+}
+
+# function to get pass times for capitals and create df
+get_all_capitals_passes <- function(df) {
+  # empty list to store results
+  all_passes_list <- list()
+  
+  # loop through each capital
+  for (i in 1:nrow(df)) {
+    capital_info <- df[i, ]
+    
+    pass_times_vector <- get_single_location_passes(lat = capital_info$lat, long = capital_info$long)
+    
+    # make tibble for the capital pass times
+    # three time columns, NA if less than 3 
+    current_passes_df <- tibble(
+      state_abbr = capital_info$state,
+      capital_name = capital_info$capital,
+      lat = capital_info$lat,
+      long = capital_info$long,
+      time1 = if (length(pass_times_vector) >= 1) pass_times_vector[1] else NA_character_,
+      time2 = if (length(pass_times_vector) >= 2) pass_times_vector[2] else NA_character_,
+      time3 = if (length(pass_times_vector) >= 3) pass_times_vector[3] else NA_character_
+    )
+    
+    all_passes_list[[i]] <- current_passes_df
+    
+    # wait for 1 second between requests
+    Sys.sleep(1) 
+  }
+  
+  # combine all tibbles
+  final_df <- bind_rows(all_passes_list)
+  return(final_df)
+}
+
+```
+
+In Lab 8, our team collaborated to pull data from APIs. Though it was a bit of a learning process, we successfully retrieved data from the APIs. This including writing a function to get data from multiple URLs. Overall, we were successful in this task and our code was reproducible.
 
 ## DM Summary
 
@@ -807,7 +936,7 @@ percents %>%
   
 ```
 
-Lab 2 focused on improving visualizations. Above is the code for the dotplot. I removed the legend and messy labels, insted replacing these with test over the relevant facets. This uses a color-blind friendly brewer palette (Set2), and text and data points are color coded. I have a clear title and an informative sub-title. I have minimal gridlines and a single x-axis to avoid unnecessary distraction. Overall, I follow the grammer of graphic guidelines outline in the Ted Talk we watched at the beginning of the quarter.
+Lab 2 focused on improving visualizations. Above is the code for the dotplot. I removed the legend and messy labels, insted replacing these with test over the relevant facets. This uses a color-blind friendly brewer palette (Set2), and text and data points are color coded. I have a clear title and an informative sub-title. I have minimal gridlines and a single x-axis to avoid unnecessary distraction. Overall, I follow the grammar of graphic guidelines outline in the Ted Talk we watched at the beginning of the quarter.
 
 
 ## \[PV-2\] Dynamic Visualizations
@@ -854,7 +983,99 @@ leaflet(mergedmap) %>%
 
 ```
 
-In Lab 2, I created an interactive leaflet, including labels that appear when hovering over a country. This map was clear and well labeled, and a good representation of my dynamic plot skills. I gave myself a proficient as I have not utilized as many packages to develop interactive visualizations as I would like. 
+In Lab 2, I created an interactive leaflet, including labels that appear when hovering over a country. This map was clear and well labeled, and a good representation of my dynamic plot skills. 
+
+[Lab 7](../lab7/index.qmd): leaflet
+
+```{r}
+#| label: create-leaflet-map
+#| fig-height: 7 
+#| eval: false
+
+# ensure there is data for plot
+if (nrow(iss_pass_data_processed) > 0) {
+  
+  # format times (local time zone for readability) for labels etc
+  
+  map_data <- iss_pass_data_processed |>
+    mutate(
+      time1_display = format(time1_dt, "%Y-%m-%d %H:%M:%S UTC"),
+      time2_display = format(time2_dt, "%Y-%m-%d %H:%M:%S UTC"),
+      time3_display = format(time3_dt, "%Y-%m-%d %H:%M:%S UTC"),
+      
+      # handle NA times in display strings
+      time2_display = ifelse(is.na(time2_dt), "N/A", time2_display),
+      time3_display = ifelse(is.na(time3_dt), "N/A", time3_display)
+    )
+
+  # hover labels
+  hover_labels <- paste0(
+    "<strong>Capital:</strong> ", map_data$capital_name, "<br>",
+    "<strong>State:</strong> ", map_data$state_abbr, "<br>",
+    "<strong>Soonest Pass:</strong> ", map_data$time1_display
+  ) |> lapply(htmltools::HTML) # lapply with HTML for proper rendering
+
+  # click popups
+  click_popups <- paste0(
+    "<strong>Capital:</strong> ", map_data$capital_name, " (", map_data$state_abbr, ")<br><br>",
+    "<strong>Predicted Pass Times (UTC):</strong><br>",
+    "1. ", map_data$time1_display, "<br>",
+    "2. ", map_data$time2_display, "<br>",
+    "3. ", map_data$time3_display
+  ) |> lapply(htmltools::HTML)
+
+  # create the map
+  iss_map <- leaflet(data = map_data) |>
+    addTiles(group = "OSM (Default)") |> # add default OpenStreetMap map tiles
+    addProviderTiles(providers$CartoDB.Positron, group = "CartoDB Positron") |>
+    addProviderTiles(providers$Esri.WorldImagery, group = "Esri World Imagery") |>
+    
+    # markers for each state capital
+    addMarkers(
+      lng = ~long, 
+      lat = ~lat,
+      icon = satellite_icon,
+      label = hover_labels,
+      popup = click_popups,
+      group = "State Capitals"
+    ) |>
+    
+    #  polylines connecting capitals in order of first pass time
+    addPolylines(
+      lng = ~long,
+      lat = ~lat,
+      color = "#E6007E", 
+      weight = 3,
+      opacity = 0.8,
+      dashArray = "5, 5", # dashed line
+      group = "ISS Pass Order Path"
+    ) |>
+    
+    #  layer controls to toggle layers
+    addLayersControl(
+      baseGroups = c("OSM (Default)", "CartoDB Positron", "Esri World Imagery"),
+      overlayGroups = c("State Capitals", "ISS Pass Order Path"),
+      options = layersControlOptions(collapsed = FALSE)
+    ) |>
+    
+    # legend for the polyline
+    addLegend(
+        position = "bottomright",
+        colors = "#E6007E",
+        labels = "ISS Pass Order Path",
+        title = "Map Features"
+    )
+
+  # display the map
+  iss_map
+
+} else {
+  print("No ISS pass data available to map. Check API calls or data processing steps.")
+}
+
+```
+
+In lab 7, we extended our leaflet abilities and made a much more in-depth leaflet, including using a cute rocket as an icon for the markers. This shows mastery of leaflet. Despite this, I still feel I earned a proficient here, as I did not extend my knowledge to as many packages as I would have liked to.
 
 ## \[PV-3\] Interactive Visualizations
 
@@ -956,7 +1177,9 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-Have not completed relevant tasks yet
+[Lab 6](../lab6/index.qmd): function writing
+
+Honestly, I was not great at writing functions. I definitely could have used R in a better way. I used for loops where I could have used other functions like `map`. I was ok at non-standard evaluation with `enquos()` and handling `...` but I still could have improved this. It is ok that I was not great at this, I don't forsee myself writing any crazy functions in the future.
 
 ## \[CDAI-2\] Object Handling
 
@@ -968,7 +1191,7 @@ Have not completed relevant tasks yet
 #| include: false
 #| label: CDAI-2
 
-my_level <- 1
+my_level <- 2
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
@@ -981,7 +1204,51 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-Have not completed relevant tasks yet
+[Lab 6](../lab6/index.qmd):
+
+```{r}
+#| eval: false
+impute_missing <- function(df, ..., impute_fun = mean) {
+  selected_cols <- rlang::enquos(...)
+  
+  # warning message for no columns selected
+  if (length(selected_cols) == 0) {
+    warning("No columns specified for imputation, returning original dataframe")
+    return(df)
+  }
+  
+  # selecting df columns, !!! allows for unquoting (... is usable)
+  filtered_df <- df %>% dplyr::select(!!!selected_cols)
+  col_names <- names(filtered_df)
+  
+  # warning message for when all columns do not exist
+  if (length(col_names) == 0) {
+     stop("Columns specified do not exist")
+  }
+  
+  # checking is all cols numeric 
+  are_numeric <- sapply(filtered_df, is.numeric)
+  if (!all(are_numeric)) {
+    # id non-numeric and warning
+    non_numeric_selected_cols <- col_names[!are_numeric]
+    stop(paste("The following columns are non-numeric:", paste(non_numeric_selected_cols, collapse=", ")))
+  }
+  
+  df_imputed <- df %>%
+    mutate(
+      across(
+        .cols = all_of(col_names), #selecting cols
+        .fns = ~ {imputation_val <- impute_fun(.x, na.rm = TRUE) #creating impute values
+                  tidyr::replace_na(.x, imputation_val) #replacing NAs
+                  }
+      ))
+  
+  return(df_imputed)
+}
+
+```
+
+Though the actual function itself could have been improved, in the `impute_missing()` function I did a good job writing error messages for this function that were informative for the user. Where I could have improved here is saving intermediate objects. I feel I saved too many, which could slow down the running of the function.
 
 ## \[CDAI-3\] Speed and Efficiency
 
@@ -992,7 +1259,7 @@ Have not completed relevant tasks yet
 #| include: false
 #| label: CDAI-3
 
-my_level <- 1
+my_level <- 2
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
@@ -1005,7 +1272,59 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-Have not completed relevant tasks yet
+[Lab 8](../lab8/index.qmd): helper functions
+
+```{r}
+#| message: false
+#| warning: false
+#| eval: false
+
+library(rvest)
+library(dplyr)
+library(purrr)
+library(stringr)
+
+# defining url and pages to look at
+base_url <- "https://www.cheese.com/alphabetical/?per_page=100"
+page_numbers <- 1:21
+
+# Helper function to extract text or attributes based on tag structure
+extract_info <- function(page, outer_selector, inner_selector, attr = NULL) {
+  nodes <- page %>%
+    html_elements(outer_selector) %>%
+    html_elements(inner_selector)
+  
+  if (!is.null(attr)) { #dealing with null values
+    html_attr(nodes, attr)
+  } else {
+    html_text(nodes)
+  }
+}
+
+# Function to scrape a single page
+scrape_cheese_page <- function(page_number) {
+  full_url <- paste0(base_url, "&page=", page_number)
+  page <- read_html(full_url)
+
+  data.frame(
+    Name = extract_info(page, "div.product-item", "h3"), #cheese name
+    url = paste0("https://www.cheese.com", extract_info(page, "div.product-item", "h3 a", "href")), #cheese url
+    whether = extract_info(page, "div.product-item", "img", "class"), #if there is image
+    stringsAsFactors = FALSE
+  )
+}
+
+# Map over all pages and bind results
+cheese_data <- map_dfr(page_numbers, function(pg) {
+  result <- scrape_cheese_page(pg)
+  Sys.sleep(1)  # delay to be nice
+  result
+})
+
+head(cheese_data)
+```
+
+In lab 8, the helper functions we wrote to help with web scraping were vectorized. I gave myself a proficient here since I may have difficulties identifying slow downs in a function if it came down to it.
 
 ## \[CDAI-4\] Supporting Functions
 
@@ -1016,7 +1335,7 @@ Have not completed relevant tasks yet
 #| include: false
 #| label: CDAI-4
 
-my_level <- 1
+my_level <- 3
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
@@ -1029,7 +1348,77 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-Have not completed relevant tasks yet
+[Lab 8](../lab8/index.qmd): same as above
+
+[Lab 7](../lab7/index.qmd)
+
+```{r}
+#| eval: false
+
+# function to get pass times for a single capital
+
+get_single_location_passes <- function(lat, long) {
+  api_base_url <- "https://api.g7vrd.co.uk/v1/satellite-passes/25544"
+  request_url <- paste0(api_base_url, "/", lat, "/", long, ".json")
+  
+  # get request
+  response <- GET(request_url)
+  
+  # check if the request successful, if success get content
+  if (status_code(response) == 200) {
+    content <- content(response, "text", encoding = "UTF-8")
+    pass_data <- fromJSON(content)
+    
+    # extract time 
+    if (length(pass_data$passes) > 0 && "tca" %in% names(pass_data$passes)) {
+      # get first 3 TCA timestamps
+      return(head(pass_data$passes$tca, 3))
+    } else {
+      return(NULL) # if no passes found or tca field missing
+    }
+  } else {
+    warning(paste("API request failed for lat:", lat, "long:", long, "with status:", status_code(response)))
+    return(NULL) # if request failed
+  }
+}
+
+# function to get pass times for capitals and create df
+get_all_capitals_passes <- function(df) {
+  # empty list to store results
+  all_passes_list <- list()
+  
+  # loop through each capital
+  for (i in 1:nrow(df)) {
+    capital_info <- df[i, ]
+    
+    pass_times_vector <- get_single_location_passes(lat = capital_info$lat, long = capital_info$long)
+    
+    # make tibble for the capital pass times
+    # three time columns, NA if less than 3 
+    current_passes_df <- tibble(
+      state_abbr = capital_info$state,
+      capital_name = capital_info$capital,
+      lat = capital_info$lat,
+      long = capital_info$long,
+      time1 = if (length(pass_times_vector) >= 1) pass_times_vector[1] else NA_character_,
+      time2 = if (length(pass_times_vector) >= 2) pass_times_vector[2] else NA_character_,
+      time3 = if (length(pass_times_vector) >= 3) pass_times_vector[3] else NA_character_
+    )
+    
+    all_passes_list[[i]] <- current_passes_df
+    
+    # wait for 1 second between requests
+    Sys.sleep(1) 
+  }
+  
+  # combine all tibbles
+  final_df <- bind_rows(all_passes_list)
+  return(final_df)
+}
+```
+
+
+Referring to the code above, the helper functions we wrote were incredibly useful in our web scraping. I must acknowledge how useful it was to complete this lab in group settings and the teamwork that went into these functions. We were able to recognize where helper functions would be useful and successfully avoid repetitive code.
 
 ## \[CDAI-5\] Algorithmic Process
 
@@ -1054,7 +1443,7 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-Have not completed relevant tasks yet
+I was able to apply `map()` functions in a couple of places, but largely had difficulties with loops and iterations. I relied heavily on my teammates for help on the iterations. I have had previous classes where for loops were the standard (I was not taught how to use map until this class) and had a hard time breaking away from them. Overall, I could largely improve here and my lack of data science courses had a negative impact on my skills. I will also not likely use these skills in the future, so I am okay with this.
 
 ## \[CDAI-6\] Generative Art
 
@@ -1065,7 +1454,7 @@ Have not completed relevant tasks yet
 #| include: false
 #| label: CDAI-6
 
-my_level <- 1
+my_level <- 3
 
 portfolio_levels <- portfolio_levels %>%
   bind_rows(
@@ -1078,7 +1467,11 @@ portfolio_levels <- portfolio_levels %>%
 
 ### Justification:
 
-Have not completed relevant tasks yet
+[Lab 9](../lab9/index.qmd)
+
+(code not included here since it was very long)
+
+This lab was awesome and the most fun assignment I have done in a while. In this lab, I demonstrated that I can create art using both `ggplot2` workflow/ functions as well as more generative options. Though I used Danielle's functions for a piece, I knew what was happening and could justify my choices. I decided to choose my own colors for more fun.
 
 ## CDAI Summary
 
@@ -1131,7 +1524,7 @@ portfolio_levels %>%
 
 ## Grade
 
-Based on the summary plot above, I believe I have earned a B+ in STAT 541 (so far).
+Based on the summary plot above, I believe I have earned a B+ (maybeeee and A-) in STAT 541.
 
 ### Justification
 
