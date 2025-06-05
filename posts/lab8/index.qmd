@@ -5,7 +5,7 @@ author:
   - name: Lily Cook
 date: 05-27-2025
 categories: [Advanced R] 
-#image: ../../media/argyle.jpg
+image: ../../media/check.jpg
 draft: false 
 execute: 
   echo: true
@@ -151,3 +151,77 @@ cheese_data <- map_dfr(page_numbers, function(pg) {
 head(cheese_data)
 
 ```
+
+
+**Part 5:** When you go to a particular cheese's page (like [gouda](https://www.cheese.com/gouda/)), you'll see more detailed information about the cheese. For [**just 10**]{.underline} of the cheeses in the database, obtain the following detailed information:
+
+-   milk information
+-   country of origin
+-   family
+-   type
+-   flavour
+
+(Just 10 to avoid overtaxing the website! Continue adding a 1 second pause between page queries.)
+
+```{r}
+#| message: false
+#| warning: false
+#| label: scrape 10 cheeses
+
+extract_text <- function(page, selector) {
+  page %>%
+    html_elements(selector) %>%
+    html_text()
+}
+
+# Scrape cheese detail from a single page URL
+scrape_cheese_details <- function(url) {
+  Sys.sleep(1)  # delay to be nice
+  
+  page <- read_html(url)
+  
+  tibble(
+    family = extract_text(page, ".summary_family p"),
+    milk = extract_text(page, ".summary_milk p"),
+    country_of_origin = extract_text(page, ".summary_country p"),
+    type = extract_text(page, ".summary_moisture_and_type p"),
+    flavour = extract_text(page, ".summary_taste p")
+  )
+}
+
+cheeses <- c(
+    "Gouda", "Colby", "Applewood",
+    "Vacherin", "Pecorino Romano",
+    "Cornish Blue", "Camembert", 
+    "Stella Feta", "Dubliner", "Paneer"
+  )
+# Select cheese URLs of interest
+cheese_urls <- cheese_data %>%
+  filter(Name %in% cheeses) %>%
+  pull(url)
+
+# Map and combine all details into a single tibble
+df_cheeses <- map_dfr(cheese_urls, scrape_cheese_details)
+
+# cleaning df for readibility
+df_cheeses <- df_cheeses %>%
+  mutate( # removing unnecessary labels in vars
+    family = str_remove(family, 'Family: '),
+    milk = str_remove(milk, 'Made from '),
+    country_of_origin = str_remove(country_of_origin, 'Country of origin: '),
+    type = str_remove(type, 'Type: '),
+    flavour = str_remove(flavour, "Flavour: ")
+  )
+
+names <- cheese_data %>%
+  filter(Name %in% cheeses) %>%
+  select(Name)
+
+df_cheeses <- cbind(names, df_cheeses)
+
+df_cheeses
+```
+
+**Part 6:** Evaluate the code that you wrote in terms of **efficiency**. To what extent do your function(s) adhere to the **principles for writing good functions**? To what extent are your **functions efficient**? To what extent is your **iteration of these functions efficient**?
+
+The functions we wrote follow the principles of good function design by being modular, clear, and reusable. Each function performs a single responsibility. For example, `extract_info()` and `scrape_cheese_details()` are each focused on one task. Using `purrr::map_dfr()` improves efficiency over for loops by combining iteration and row-binding in a memory-friendly way, avoiding repeated `rbind()` calls that can slow down execution. While `Sys.sleep(1)` adds intentional delay, it’s necessary for responsible scraping and to be nice to the website.

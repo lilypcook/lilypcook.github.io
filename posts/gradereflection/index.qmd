@@ -403,6 +403,9 @@ This snippet of code from Lab 3  demonstrated my coding style. I use clean style
 [Lab 9](../lab9/index.qmd): example of improved commenting
 
 ```{r}
+#| eval: false
+
+
 # generating random variables using various distributions
 w <- rpois(300, 70)
 x <- rgamma(300, 3)
@@ -1524,11 +1527,11 @@ portfolio_levels %>%
 
 ## Grade
 
-Based on the summary plot above, I believe I have earned a B+ (maybeeee and A-) in STAT 541.
+Based on the summary plot above, I believe I have earned a B+ (maybeeee an A-) in STAT 541.
 
 ### Justification
 
-Other than learning objectives not yet covered in class, I feel I am at least proficient in all learning objectives, and have been able to use many of the skills used outside of this course, especially in my thesis. I feel that I have learned a lot in this course and can explain all code. I have displayed much improvement in coding style and ability since the beginning of this course. More importantly, I have found many of these assignments to be fun, which is a huge attitude shift towards R for me. 
+I feel that I am largely proficient the learning objectives presented in this course, other than a couple involving function writing. I certainly improved in my general code style (especially commenting code) since the midterm and met many of the goals I set for myself. I have been able to use many of the skills used outside of this course, especially in my thesis. I feel that I have learned a lot in this course and can explain all code. I have displayed much improvement in coding style and ability since the beginning of this course. More importantly, I have found many of these assignments to be fun, which is a huge attitude shift towards R for me. I especially enjoyed the generative art assignment and had fun exploring all of the ggplot options I never knew existed. I did have trouble individually writing functions (Lab 6) but when working in a team, it really clicked for me, especially since I had help from my group mates who had completed the data science minor and more experienced in these things.  
 
 Below is a summary of my self-scored learning outcomes that we have completed in class so far:
 
@@ -1536,11 +1539,13 @@ Below is a summary of my self-scored learning outcomes that we have completed in
 
 [RW-2] Notebooks: Virtuoso
 
-[RW-3] Code Style: Proficient
+[RW-3] Code Style: Virtuoso
 
 [DM-1] Data Preparation: Proficient
 
 [DM-2] Data Wrangling: Virtuoso
+
+[DM-3] Data Formats: Virtuoso
 
 [PV-1] Clear & Accessible Visualizations: Virtuoso
 
@@ -1548,7 +1553,7 @@ Below is a summary of my self-scored learning outcomes that we have completed in
 
 [PV-3] Interactive Visualizations: Virtuoso
 
-[IL-1] Adding New Skills: Proficient
+[IL-1] Adding New Skills: Virtuoso
 
 [IL-2] Online Resources: Virtuoso
 
@@ -1556,12 +1561,21 @@ Below is a summary of my self-scored learning outcomes that we have completed in
 
 [TC-2] Documentation: Virtuoso
 
-For all virtuoso scores, I feel I have well justified my scores. 
-For my proficient scores, I have also justified them and included steps for improvement of these learning outcomes.
+[CDAI-1] R Programming Language: Novice
 
-I hope to end this course with an A, but I do not think I am there yet. I would like to improve comments in the code and use better functions (such as not using `merge()`). I also hope to hear what you would like to see me improve on to meet this goal. 
+[CDAI-2] Object Handling: Proficient
 
-I will write a more in-depth justification for the final portfolio, I am just a bit strapped on time this week.
+[CDAI-3] Speed and Efficiency: Proficient
+
+[CDAI-4] Supporting Functions: Virtuoso
+
+[CDAI-5] Algorithmic Process: Novice
+
+[CDAI-6] Generative Art: Virtuoso
+
+For all virtuoso and proficient scores, I feel I have well justified my scores. For my two novice scores, I have outlined my shortcomings.
+
+I was hoping to end the course with an A, but I think my function writing abilities are holding me back here. I feel I have shown some improvement throughout the quarter and had much more fun than expected! Working in groups has assisted me in understanding where I can improve with my code writing. I like to think that I have shown enough improvement in my work and overall done a good enough job to earn an A-, but I would be satisfied with a B+ in this course, if you feel that better reflects my skills.
 
 
 

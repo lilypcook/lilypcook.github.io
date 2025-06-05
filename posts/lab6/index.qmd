@@ -6,7 +6,7 @@ author:
   - name: Lily Cook
 date: 05-12-2025
 categories: [Advanced R] 
-#image: ../../media/argyle.jpg
+image: ../../media/zigzag.jpg
 draft: false 
 execute: 
   echo: true
