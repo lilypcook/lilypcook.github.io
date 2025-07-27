@@ -11,7 +11,7 @@ website:
       - href: about.qmd
         text: About
       - href: BlogPosts.qmd 
-        text: Blog
+        text: Portfolio
      right:
       - icon: github
         href:  https://github.com/lilypcook/lab-3

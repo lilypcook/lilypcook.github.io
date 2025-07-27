@@ -15,4 +15,4 @@ about:
       href: mailto:lilypcook@gmail.com
 ---
 
-Hi, I'm Lily. I recently graduated from Cal Poly, San Luis Obispo with my MS in Statistics, in June 2025. I am excited to enter the work force as a data analyst. My time at Cal Poly has equipped me with a robust understanding of statistical methodologies, data modeling, and the power of extracting meaningful insights from complex datasets. I'm eager to apply these skills to help organizations make data-driven decisions and solve real-world problems. I'm excited to connect and explore opportunities in the data analysis field!
+Hi, I'm Lily. I recently graduated from Cal Poly, San Luis Obispo with my MS in Statistics in June 2025. I am excited to enter the work force as a data analyst. My time at Cal Poly has equipped me with a robust understanding of statistical methodologies, data modeling, and communicating meaningful findings with various audiences. I'm eager to apply these skills to help organizations make data-driven decisions and solve real-world problems. I'm excited to connect and explore opportunities in the data analysis field!

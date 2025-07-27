@@ -4,7 +4,7 @@ description: "Coursework Example"
 author:
   - name: Lily Cook
 date: 06-02-2025
-categories: [R] [Fun]
+categories: [R]
 image: ../../media/madras.jpg
 draft: false 
 execute: 
