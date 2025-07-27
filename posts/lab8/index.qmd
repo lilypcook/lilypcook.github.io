@@ -1,10 +1,10 @@
 ---
-title: "Lab 8"
-description: "Web Scraping"
+title: "Web Scraping"
+description: "Coursework Example"
 author:
   - name: Lily Cook
 date: 05-27-2025
-categories: [Advanced R] 
+categories: [R] 
 image: ../../media/check.jpg
 draft: false 
 execute: 
@@ -15,7 +15,7 @@ embed-resources: true
 editor: source
 ---
 
- **Goal:** Scrape information from <https://www.cheese.com> to obtain a dataset of characteristics about different cheeses, and gain deeper insight into your coding process. 🪤
+**Goal:** Scrape information from <https://www.cheese.com> to obtain a dataset of characteristics about different cheeses, and gain deeper insight into your coding process. 🪤
 
 **Part 1:** Locate and examine the `robots.txt` file for this website. Summarize what you learn from it.
 
@@ -151,7 +151,6 @@ cheese_data <- map_dfr(page_numbers, function(pg) {
 head(cheese_data)
 
 ```
-
 
 **Part 5:** When you go to a particular cheese's page (like [gouda](https://www.cheese.com/gouda/)), you'll see more detailed information about the cheese. For [**just 10**]{.underline} of the cheeses in the database, obtain the following detailed information:
 

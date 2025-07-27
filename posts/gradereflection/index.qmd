@@ -7,7 +7,7 @@ author:
 date: 06-08-2025
 categories: [Advanced R] 
 image: ../../media/stripes.jpg
-draft: false 
+draft: true 
 execute: 
   echo: true
   warning: false

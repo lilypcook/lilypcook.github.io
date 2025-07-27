@@ -1,10 +1,10 @@
 ---
-title: "Lab 7"
-description: "Using APIs"
+title: "Using APIs"
+description: "Coursework Example"
 author:
   - name: Lily Cook
 date: 05-19-2025
-categories: [Advanced R] 
+categories: [R] 
 image: ../../media/floral.jpg
 draft: false 
 execute: 

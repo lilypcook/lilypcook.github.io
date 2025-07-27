@@ -1,18 +1,17 @@
 ---
-title: "Lab 3"
+title: "Static Dashboard"
 format: html
-description: "Static Quarto Dashboard"
+description: "Created with Quarto"
 author:
   - name: Lily Cook
 date: 04-21-2025
-categories: [Advanced R] 
+categories: [R] 
 image: ../../media/polkadots.jpg
 draft: false 
 execute: 
   echo: true
   warning: false
 ---
-
 
 ```{=html}
 
@@ -23,5 +22,4 @@ execute:
 </iframe>
 
 </center>
-
 ```

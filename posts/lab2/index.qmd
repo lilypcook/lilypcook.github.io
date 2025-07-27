@@ -1,11 +1,11 @@
 ---
-title: "Lab 2"
+title: "Data Visualizations"
 format: html
-description: "Advanced Visualizations"
+description: "Coursework Example"
 author:
   - name: Lily Cook
 date: 04-14-2025
-categories: [Advanced R] 
+categories: [R] 
 image: ../../media/swirl.png
 draft: false 
 execute: 
